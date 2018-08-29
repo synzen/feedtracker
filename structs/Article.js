@@ -3,43 +3,6 @@ const htmlConvert = require('html-to-text')
 const globalConfig = require('../util/configs.js')
 const BASE_REGEX_PHS = ['title', 'author', 'summary', 'description', 'guid', 'date']
 
-function dateHasNoTime (date) { // Determine if the time is T00:00:00.000Z
-  const timeParts = [date.getUTCHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds()]
-  for (let part of timeParts) {
-    if (part !== 0) return false
-  }
-  return true
-}
-
-function setCurrentTime (momentObj) {
-  const now = new Date()
-  return momentObj.hours(now.getHours()).minutes(now.getMinutes()).seconds(now.getSeconds()).millisecond(now.getMilliseconds())
-}
-
-// To avoid stack call exceeded
-function checkObjType (item, results) {
-  if (Object.prototype.toString.call(item) === '[object Object]') {
-    return () => findImages(item, results)
-  } else if (typeof item === 'string' && item.match(/\.(jpg|jpeg|png|gif|bmp|webp)$/i) && !results.includes(item) && results.length < 9) {
-    if (item.startsWith('//')) item = 'http:' + item
-    results.push(item)
-  }
-}
-
-// Used to find images in any object values of the article
-function findImages (obj, results) {
-  for (let key in obj) {
-    let value = checkObjType(obj[key], results)
-    while (typeof value === 'function') {
-      value = value()
-    }
-  }
-}
-
-function escapeRegExp (str) {
-  return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')
-}
-
 function regexReplace (string, searchOptions, replacement) {
   if (typeof searchOptions !== 'object') throw new TypeError(`Expected RegexOp search key to have an object value, found ${typeof searchOptions} instead`)
   const flags = !searchOptions.flags ? 'g' : searchOptions.flags.includes('g') ? searchOptions.flags : searchOptions.flags + 'g' // Global flag must be included to prevent infinite loop during .exec
@@ -58,14 +21,14 @@ function regexReplace (string, searchOptions, replacement) {
     if (replacement !== undefined) {
       if (matchIndex === undefined && groupNum === undefined) { // If no match or group is defined, replace every full match of the search in the original string
         for (let item of matches) {
-          const exp = new RegExp(escapeRegExp(item[0]), flags)
+          const exp = new RegExp(this.constructor._escapeRegExp(item[0]), flags)
           string = string.replace(exp, replacement)
         }
       } else if (matchIndex && groupNum === undefined) { // If no group number is defined, use the full match of this particular match number in the original string
-        const exp = new RegExp(escapeRegExp(matches[matchIndex][0]), flags)
+        const exp = new RegExp(this.consturctor._escapeRegExp(matches[matchIndex][0]), flags)
         string = string.replace(exp, replacement)
       } else {
-        const exp = new RegExp(escapeRegExp(matches[matchIndex][groupNum]), flags)
+        const exp = new RegExp(this.constructor._escapeRegExp(matches[matchIndex][groupNum]), flags)
         string = string.replace(exp, replacement)
       }
     } else string = match
@@ -183,11 +146,17 @@ module.exports = class Article {
       const dateFormat = this.feedConfig.dateFormat ? this.feedConfig.dateFormat : globalConfig.dateFormat
 
       const useDateFallback = globalConfig.dateFallback === true && (!raw.pubdate || raw.pubdate.toString() === 'Invalid Date')
-      const useTimeFallback = globalConfig.timeFallback === true && raw.pubdate.toString() !== 'Invalid Date' && dateHasNoTime(raw.pubdate)
+      let useTimeFallback = globalConfig.timeFallback === true && raw.pubdate.toString() !== 'Invalid Date'
+      const toCheck = [raw.pubdate.getUTCHours(), raw.pubdate.getMinutes(), raw.pubdate.getSeconds(), raw.pubdate.getMilliseconds()]
+      toCheck.forEach(part => {
+        if (part !== 0) useTimeFallback = false // If any of the above is equal to 0, use the fallback
+      })
+
       const date = useDateFallback ? new Date() : raw.pubdate
       const localMoment = moment(date)
       if (this.feedConfig.dateLanguage) localMoment.locale(this.feedConfig.dateLanguage)
-      const vanityDate = useTimeFallback ? setCurrentTime(localMoment).tz(timezone).format(dateFormat) : localMoment.tz(timezone).format(dateFormat)
+      const now = new Date()
+      const vanityDate = useTimeFallback ? localMoment.hours(now.getHours()).minutes(now.getMinutes()).seconds(now.getSeconds()).millisecond(now.getMilliseconds()).tz(timezone).format(dateFormat) : localMoment.tz(timezone).format(dateFormat)
       this.date = (vanityDate !== 'Invalid Date') ? vanityDate : ''
       this.rawDate = raw.pubdate
     }
@@ -224,7 +193,7 @@ module.exports = class Article {
 
     // Image links
     const imageLinks = []
-    findImages(raw, imageLinks)
+    this.constructor._findImages(raw, imageLinks)
     this.images = (imageLinks.length === 0) ? undefined : imageLinks
     for (let imageNum = 0; imageNum < imageLinks.length; ++imageNum) {
       const term = `image:${imageNum + 1}`
@@ -250,6 +219,30 @@ module.exports = class Article {
       for (let placeholderName in this.placeholdersForRegex) {
         const regexResults = evalRegexConfig(this.feedConfig, this[placeholderName], placeholderName)
         this.regexPlaceholders[placeholderName] = regexResults
+      }
+    }
+  }
+
+  static _escapeRegExp (str) {
+    return str.replace(/[-[\]/{}()*+?.\\^$|]/g, '\\$&')
+  }
+
+  // To avoid stack call exceeded
+  _checkType (item, results) {
+    if (Object.prototype.toString.call(item) === '[object Object]') {
+      return () => this.constructor._findImages(item, results)
+    } else if (typeof item === 'string' && item.match(/\.(jpg|jpeg|png|gif|bmp|webp)$/i) && !results.includes(item) && results.length < 9) {
+      if (item.startsWith('//')) item = 'http:' + item
+      results.push(item)
+    }
+  }
+
+// Used to find images in any object values of the article
+  _findImages (obj, results) {
+    for (let key in obj) {
+      let value = this.constructor._checkType(obj[key], results)
+      while (typeof value === 'function') {
+        value = value()
       }
     }
   }
