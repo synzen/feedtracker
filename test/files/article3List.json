@@ -1,0 +1,746 @@
+[
+  {
+    "title": "Daily Deal - Cultist Simulator, 25% Off",
+    "description": "Today's Deal: Save 25% on <a href='http://store.steampowered.com/app/718670/'>Cultist Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Wednesday at 10AM Pacific Time<br><a href=\"http://store.steampowered.com/app/718670/\"><img src=\"https://steamcdn-a.akamaihd.net/steam/apps/718670/capsule_467x181.jpg\" style=\" float: left; margin-right: 12px; height: 181px; width: 467px;\"></a>",
+    "summary": null,
+    "date": "2018-08-20T14:05:00.000Z",
+    "pubdate": "2018-08-20T14:05:00.000Z",
+    "pubDate": "2018-08-20T14:05:00.000Z",
+    "link": "https://store.steampowered.com/news/43087/",
+    "guid": "https://store.steampowered.com/news/43087/",
+    "author": "Valve",
+    "comments": "https://steamcommunity.com//discussions/",
+    "origlink": null,
+    "image": {},
+    "source": {},
+    "categories": [
+      "Valve",
+      "news",
+      "update"
+    ],
+    "enclosures": [],
+    "rdf:@": {
+      "about": "https://store.steampowered.com/news/43087/"
+    },
+    "rdf:title": {
+      "@": {},
+      "#": "Daily Deal - Cultist Simulator, 25% Off"
+    },
+    "rdf:link": {
+      "@": {},
+      "#": "https://store.steampowered.com/news/43087/"
+    },
+    "rdf:guid": {
+      "@": {
+        "ispermalink": "true"
+      },
+      "#": "https://store.steampowered.com/news/43087/"
+    },
+    "rdf:comments": {
+      "@": {},
+      "#": "https://steamcommunity.com//discussions/"
+    },
+    "rdf:pubdate": {
+      "@": {},
+      "#": "Mon, 20 Aug 2018 10:05:00 -0400"
+    },
+    "rdf:author": {
+      "@": {},
+      "#": "Valve",
+      "name": "Valve",
+      "email": ""
+    },
+    "rdf:category": {
+      "@": {},
+      "#": "Valve news update"
+    },
+    "dc:subject": {
+      "@": {},
+      "#": "Valve news update"
+    },
+    "dc:creator": {
+      "@": {},
+      "#": "Valve"
+    },
+    "dc:date": {
+      "@": {},
+      "#": "2018-08-20T10:05:00-0400"
+    },
+    "content:encoded": {
+      "@": {},
+      "#": "Today's Deal: Save 25% on <a href='http://store.steampowered.com/app/718670/'>Cultist Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Wednesday at 10AM Pacific Time<br><a href=\"http://store.steampowered.com/app/718670/\"><img src=\"https://steamcdn-a.akamaihd.net/steam/apps/718670/capsule_467x181.jpg\" style=\" float: left; margin-right: 12px; height: 181px; width: 467px;\"></a>"
+    },
+    "meta": {
+      "#ns": [
+        {
+          "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "xmlns": "http://purl.org/rss/1.0/"
+        },
+        {
+          "xmlns:cc": "http://web.resource.org/cc/"
+        },
+        {
+          "xmlns:content": "http://purl.org/rss/1.0/modules/content/"
+        },
+        {
+          "xmlns:dc": "http://purl.org/dc/elements/1.1/"
+        },
+        {
+          "xmlns:foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "xmlns:steam": "http://www.steampowered.com"
+        },
+        {
+          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+        }
+      ],
+      "@": [
+        {
+          "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "xmlns": "http://purl.org/rss/1.0/"
+        },
+        {
+          "xmlns:cc": "http://web.resource.org/cc/"
+        },
+        {
+          "xmlns:content": "http://purl.org/rss/1.0/modules/content/"
+        },
+        {
+          "xmlns:dc": "http://purl.org/dc/elements/1.1/"
+        },
+        {
+          "xmlns:foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "xmlns:steam": "http://www.steampowered.com"
+        },
+        {
+          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+        }
+      ],
+      "#xml": {
+        "version": "1.0",
+        "encoding": "UTF-8"
+      },
+      "#type": "rdf",
+      "#version": "1.0",
+      "title": null,
+      "description": null,
+      "date": null,
+      "pubdate": null,
+      "pubDate": null,
+      "link": null,
+      "xmlurl": null,
+      "xmlUrl": null,
+      "author": null,
+      "language": null,
+      "favicon": null,
+      "copyright": null,
+      "generator": null,
+      "cloud": {},
+      "image": {},
+      "categories": [],
+      "rdf:@": {
+        "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "xmlns": "http://purl.org/rss/1.0/",
+        "xmlns:cc": "http://web.resource.org/cc/",
+        "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+        "xmlns:dc": "http://purl.org/dc/elements/1.1/",
+        "xmlns:foaf": "http://xmlns.com/foaf/0.1/",
+        "xmlns:steam": "http://www.steampowered.com",
+        "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+      },
+      "rdf:item": {
+        "@": {
+          "about": "https://store.steampowered.com/news/43087/"
+        },
+        "title": {
+          "@": {},
+          "#": "Daily Deal - Cultist Simulator, 25% Off"
+        },
+        "link": {
+          "@": {},
+          "#": "https://store.steampowered.com/news/43087/"
+        },
+        "guid": {
+          "@": {
+            "ispermalink": "true"
+          },
+          "#": "https://store.steampowered.com/news/43087/"
+        },
+        "comments": {
+          "@": {},
+          "#": "https://steamcommunity.com//discussions/"
+        },
+        "pubdate": {
+          "@": {},
+          "#": "Mon, 20 Aug 2018 10:05:00 -0400"
+        },
+        "author": {
+          "@": {},
+          "#": "Valve",
+          "name": "Valve",
+          "email": ""
+        },
+        "category": {
+          "@": {},
+          "#": "Valve news update"
+        },
+        "dc:subject": {
+          "@": {},
+          "#": "Valve news update"
+        },
+        "dc:creator": {
+          "@": {},
+          "#": "Valve"
+        },
+        "dc:date": {
+          "@": {},
+          "#": "2018-08-20T10:05:00-0400"
+        },
+        "content:encoded": {
+          "@": {},
+          "#": "Today's Deal: Save 25% on <a href='http://store.steampowered.com/app/718670/'>Cultist Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Wednesday at 10AM Pacific Time<br><a href=\"http://store.steampowered.com/app/718670/\"><img src=\"https://steamcdn-a.akamaihd.net/steam/apps/718670/capsule_467x181.jpg\" style=\" float: left; margin-right: 12px; height: 181px; width: 467px;\"></a>"
+        }
+      }
+    },
+    "_id": "https://store.steampowered.com/news/43087/"
+  },
+  {
+    "title": "Dota 2 Update - August 19th, 2018",
+    "description": "- Fixed a bug with the interaction of Undying's respawn talent and Wraith King's Aghanim's Scepter upgrade.<br>- Fixed a bug with Windranger's Sylvan Vedette and her Focus Fire ability.",
+    "summary": null,
+    "date": "2018-08-19T16:07:00.000Z",
+    "pubdate": "2018-08-19T16:07:00.000Z",
+    "pubDate": "2018-08-19T16:07:00.000Z",
+    "link": "https://store.steampowered.com/news/43099/",
+    "guid": "https://store.steampowered.com/news/43099/",
+    "author": "Valve",
+    "comments": "https://steamcommunity.com//discussions/",
+    "origlink": null,
+    "image": {},
+    "source": {},
+    "categories": [
+      "Valve",
+      "news",
+      "update"
+    ],
+    "enclosures": [],
+    "rdf:@": {
+      "about": "https://store.steampowered.com/news/43099/"
+    },
+    "rdf:title": {
+      "@": {},
+      "#": "Dota 2 Update - August 19th, 2018"
+    },
+    "rdf:link": {
+      "@": {},
+      "#": "https://store.steampowered.com/news/43099/"
+    },
+    "rdf:guid": {
+      "@": {
+        "ispermalink": "true"
+      },
+      "#": "https://store.steampowered.com/news/43099/"
+    },
+    "rdf:comments": {
+      "@": {},
+      "#": "https://steamcommunity.com//discussions/"
+    },
+    "rdf:pubdate": {
+      "@": {},
+      "#": "Sun, 19 Aug 2018 12:07:00 -0400"
+    },
+    "rdf:author": {
+      "@": {},
+      "#": "Valve",
+      "name": "Valve",
+      "email": ""
+    },
+    "rdf:category": {
+      "@": {},
+      "#": "Valve news update"
+    },
+    "dc:subject": {
+      "@": {},
+      "#": "Valve news update"
+    },
+    "dc:creator": {
+      "@": {},
+      "#": "Valve"
+    },
+    "dc:date": {
+      "@": {},
+      "#": "2018-08-19T12:07:00-0400"
+    },
+    "content:encoded": {
+      "@": {},
+      "#": "- Fixed a bug with the interaction of Undying's respawn talent and Wraith King's Aghanim's Scepter upgrade.<br>- Fixed a bug with Windranger's Sylvan Vedette and her Focus Fire ability."
+    },
+    "meta": {
+      "#ns": [
+        {
+          "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "xmlns": "http://purl.org/rss/1.0/"
+        },
+        {
+          "xmlns:cc": "http://web.resource.org/cc/"
+        },
+        {
+          "xmlns:content": "http://purl.org/rss/1.0/modules/content/"
+        },
+        {
+          "xmlns:dc": "http://purl.org/dc/elements/1.1/"
+        },
+        {
+          "xmlns:foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "xmlns:steam": "http://www.steampowered.com"
+        },
+        {
+          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+        }
+      ],
+      "@": [
+        {
+          "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "xmlns": "http://purl.org/rss/1.0/"
+        },
+        {
+          "xmlns:cc": "http://web.resource.org/cc/"
+        },
+        {
+          "xmlns:content": "http://purl.org/rss/1.0/modules/content/"
+        },
+        {
+          "xmlns:dc": "http://purl.org/dc/elements/1.1/"
+        },
+        {
+          "xmlns:foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "xmlns:steam": "http://www.steampowered.com"
+        },
+        {
+          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+        }
+      ],
+      "#xml": {
+        "version": "1.0",
+        "encoding": "UTF-8"
+      },
+      "#type": "rdf",
+      "#version": "1.0",
+      "title": null,
+      "description": null,
+      "date": null,
+      "pubdate": null,
+      "pubDate": null,
+      "link": null,
+      "xmlurl": null,
+      "xmlUrl": null,
+      "author": null,
+      "language": null,
+      "favicon": null,
+      "copyright": null,
+      "generator": null,
+      "cloud": {},
+      "image": {},
+      "categories": [],
+      "rdf:@": {
+        "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "xmlns": "http://purl.org/rss/1.0/",
+        "xmlns:cc": "http://web.resource.org/cc/",
+        "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+        "xmlns:dc": "http://purl.org/dc/elements/1.1/",
+        "xmlns:foaf": "http://xmlns.com/foaf/0.1/",
+        "xmlns:steam": "http://www.steampowered.com",
+        "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+      },
+      "rdf:item": {
+        "@": {
+          "about": "https://store.steampowered.com/news/43087/"
+        },
+        "title": {
+          "@": {},
+          "#": "Daily Deal - Cultist Simulator, 25% Off"
+        },
+        "link": {
+          "@": {},
+          "#": "https://store.steampowered.com/news/43087/"
+        },
+        "guid": {
+          "@": {
+            "ispermalink": "true"
+          },
+          "#": "https://store.steampowered.com/news/43087/"
+        },
+        "comments": {
+          "@": {},
+          "#": "https://steamcommunity.com//discussions/"
+        },
+        "pubdate": {
+          "@": {},
+          "#": "Mon, 20 Aug 2018 10:05:00 -0400"
+        },
+        "author": {
+          "@": {},
+          "#": "Valve",
+          "name": "Valve",
+          "email": ""
+        },
+        "category": {
+          "@": {},
+          "#": "Valve news update"
+        },
+        "dc:subject": {
+          "@": {},
+          "#": "Valve news update"
+        },
+        "dc:creator": {
+          "@": {},
+          "#": "Valve"
+        },
+        "dc:date": {
+          "@": {},
+          "#": "2018-08-20T10:05:00-0400"
+        },
+        "content:encoded": {
+          "@": {},
+          "#": "Today's Deal: Save 25% on <a href='http://store.steampowered.com/app/718670/'>Cultist Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Wednesday at 10AM Pacific Time<br><a href=\"http://store.steampowered.com/app/718670/\"><img src=\"https://steamcdn-a.akamaihd.net/steam/apps/718670/capsule_467x181.jpg\" style=\" float: left; margin-right: 12px; height: 181px; width: 467px;\"></a>"
+        }
+      }
+    },
+    "_id": "https://store.steampowered.com/news/43099/"
+  },
+  {
+    "title": "Daily Deal - Train Simulator, 77% Off",
+    "description": "Today's Deal: Save 77% on <a href='http://store.steampowered.com/app/24010/'>Train Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Tuesday at 10AM Pacific Time<br><a href=\"http://store.steampowered.com/app/24010/\"><img src=\"https://steamcdn-a.akamaihd.net/steam/apps/24010/capsule_467x181.jpg\" style=\" float: left; margin-right: 12px; height: 181px; width: 467px;\"></a>",
+    "summary": null,
+    "date": "2018-08-19T14:05:00.000Z",
+    "pubdate": "2018-08-19T14:05:00.000Z",
+    "pubDate": "2018-08-19T14:05:00.000Z",
+    "link": "https://store.steampowered.com/news/43086/",
+    "guid": "https://store.steampowered.com/news/43086/",
+    "author": "Valve",
+    "comments": "https://steamcommunity.com//discussions/",
+    "origlink": null,
+    "image": {},
+    "source": {},
+    "categories": [
+      "Valve",
+      "news",
+      "update"
+    ],
+    "enclosures": [],
+    "rdf:@": {
+      "about": "https://store.steampowered.com/news/43086/"
+    },
+    "rdf:title": {
+      "@": {},
+      "#": "Daily Deal - Train Simulator, 77% Off"
+    },
+    "rdf:link": {
+      "@": {},
+      "#": "https://store.steampowered.com/news/43086/"
+    },
+    "rdf:guid": {
+      "@": {
+        "ispermalink": "true"
+      },
+      "#": "https://store.steampowered.com/news/43086/"
+    },
+    "rdf:comments": {
+      "@": {},
+      "#": "https://steamcommunity.com//discussions/"
+    },
+    "rdf:pubdate": {
+      "@": {},
+      "#": "Sun, 19 Aug 2018 10:05:00 -0400"
+    },
+    "rdf:author": {
+      "@": {},
+      "#": "Valve",
+      "name": "Valve",
+      "email": ""
+    },
+    "rdf:category": {
+      "@": {},
+      "#": "Valve news update"
+    },
+    "dc:subject": {
+      "@": {},
+      "#": "Valve news update"
+    },
+    "dc:creator": {
+      "@": {},
+      "#": "Valve"
+    },
+    "dc:date": {
+      "@": {},
+      "#": "2018-08-19T10:05:00-0400"
+    },
+    "content:encoded": {
+      "@": {},
+      "#": "Today's Deal: Save 77% on <a href='http://store.steampowered.com/app/24010/'>Train Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Tuesday at 10AM Pacific Time<br><a href=\"http://store.steampowered.com/app/24010/\"><img src=\"https://steamcdn-a.akamaihd.net/steam/apps/24010/capsule_467x181.jpg\" style=\" float: left; margin-right: 12px; height: 181px; width: 467px;\"></a>"
+    },
+    "meta": {
+      "#ns": [
+        {
+          "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "xmlns": "http://purl.org/rss/1.0/"
+        },
+        {
+          "xmlns:cc": "http://web.resource.org/cc/"
+        },
+        {
+          "xmlns:content": "http://purl.org/rss/1.0/modules/content/"
+        },
+        {
+          "xmlns:dc": "http://purl.org/dc/elements/1.1/"
+        },
+        {
+          "xmlns:foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "xmlns:steam": "http://www.steampowered.com"
+        },
+        {
+          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+        }
+      ],
+      "@": [
+        {
+          "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "xmlns": "http://purl.org/rss/1.0/"
+        },
+        {
+          "xmlns:cc": "http://web.resource.org/cc/"
+        },
+        {
+          "xmlns:content": "http://purl.org/rss/1.0/modules/content/"
+        },
+        {
+          "xmlns:dc": "http://purl.org/dc/elements/1.1/"
+        },
+        {
+          "xmlns:foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "xmlns:steam": "http://www.steampowered.com"
+        },
+        {
+          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+        }
+      ],
+      "#xml": {
+        "version": "1.0",
+        "encoding": "UTF-8"
+      },
+      "#type": "rdf",
+      "#version": "1.0",
+      "title": null,
+      "description": null,
+      "date": null,
+      "pubdate": null,
+      "pubDate": null,
+      "link": null,
+      "xmlurl": null,
+      "xmlUrl": null,
+      "author": null,
+      "language": null,
+      "favicon": null,
+      "copyright": null,
+      "generator": null,
+      "cloud": {},
+      "image": {},
+      "categories": [],
+      "rdf:@": {
+        "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "xmlns": "http://purl.org/rss/1.0/",
+        "xmlns:cc": "http://web.resource.org/cc/",
+        "xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+        "xmlns:dc": "http://purl.org/dc/elements/1.1/",
+        "xmlns:foaf": "http://xmlns.com/foaf/0.1/",
+        "xmlns:steam": "http://www.steampowered.com",
+        "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+      },
+      "rdf:item": [
+        {
+          "@": {
+            "about": "https://store.steampowered.com/news/43087/"
+          },
+          "title": {
+            "@": {},
+            "#": "Daily Deal - Cultist Simulator, 25% Off"
+          },
+          "link": {
+            "@": {},
+            "#": "https://store.steampowered.com/news/43087/"
+          },
+          "guid": {
+            "@": {
+              "ispermalink": "true"
+            },
+            "#": "https://store.steampowered.com/news/43087/"
+          },
+          "comments": {
+            "@": {},
+            "#": "https://steamcommunity.com//discussions/"
+          },
+          "pubdate": {
+            "@": {},
+            "#": "Mon, 20 Aug 2018 10:05:00 -0400"
+          },
+          "author": {
+            "@": {},
+            "#": "Valve",
+            "name": "Valve",
+            "email": ""
+          },
+          "category": {
+            "@": {},
+            "#": "Valve news update"
+          },
+          "dc:subject": {
+            "@": {},
+            "#": "Valve news update"
+          },
+          "dc:creator": {
+            "@": {},
+            "#": "Valve"
+          },
+          "dc:date": {
+            "@": {},
+            "#": "2018-08-20T10:05:00-0400"
+          },
+          "content:encoded": {
+            "@": {},
+            "#": "Today's Deal: Save 25% on <a href='http://store.steampowered.com/app/718670/'>Cultist Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Wednesday at 10AM Pacific Time<br><a href=\"http://store.steampowered.com/app/718670/\"><img src=\"https://steamcdn-a.akamaihd.net/steam/apps/718670/capsule_467x181.jpg\" style=\" float: left; margin-right: 12px; height: 181px; width: 467px;\"></a>"
+          }
+        },
+        {
+          "@": {
+            "about": "https://store.steampowered.com/news/43099/"
+          },
+          "title": {
+            "@": {},
+            "#": "Dota 2 Update - August 19th, 2018"
+          },
+          "link": {
+            "@": {},
+            "#": "https://store.steampowered.com/news/43099/"
+          },
+          "guid": {
+            "@": {
+              "ispermalink": "true"
+            },
+            "#": "https://store.steampowered.com/news/43099/"
+          },
+          "comments": {
+            "@": {},
+            "#": "https://steamcommunity.com//discussions/"
+          },
+          "pubdate": {
+            "@": {},
+            "#": "Sun, 19 Aug 2018 12:07:00 -0400"
+          },
+          "author": {
+            "@": {},
+            "#": "Valve",
+            "name": "Valve",
+            "email": ""
+          },
+          "category": {
+            "@": {},
+            "#": "Valve news update"
+          },
+          "dc:subject": {
+            "@": {},
+            "#": "Valve news update"
+          },
+          "dc:creator": {
+            "@": {},
+            "#": "Valve"
+          },
+          "dc:date": {
+            "@": {},
+            "#": "2018-08-19T12:07:00-0400"
+          },
+          "content:encoded": {
+            "@": {},
+            "#": "- Fixed a bug with the interaction of Undying's respawn talent and Wraith King's Aghanim's Scepter upgrade.<br>- Fixed a bug with Windranger's Sylvan Vedette and her Focus Fire ability."
+          }
+        },
+        {
+          "@": {
+            "about": "https://store.steampowered.com/news/43086/"
+          },
+          "title": {
+            "@": {},
+            "#": "Daily Deal - Train Simulator, 77% Off"
+          },
+          "link": {
+            "@": {},
+            "#": "https://store.steampowered.com/news/43086/"
+          },
+          "guid": {
+            "@": {
+              "ispermalink": "true"
+            },
+            "#": "https://store.steampowered.com/news/43086/"
+          },
+          "comments": {
+            "@": {},
+            "#": "https://steamcommunity.com//discussions/"
+          },
+          "pubdate": {
+            "@": {},
+            "#": "Sun, 19 Aug 2018 10:05:00 -0400"
+          },
+          "author": {
+            "@": {},
+            "#": "Valve",
+            "name": "Valve",
+            "email": ""
+          },
+          "category": {
+            "@": {},
+            "#": "Valve news update"
+          },
+          "dc:subject": {
+            "@": {},
+            "#": "Valve news update"
+          },
+          "dc:creator": {
+            "@": {},
+            "#": "Valve"
+          },
+          "dc:date": {
+            "@": {},
+            "#": "2018-08-19T10:05:00-0400"
+          },
+          "content:encoded": {
+            "@": {},
+            "#": "Today's Deal: Save 77% on <a href='http://store.steampowered.com/app/24010/'>Train Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Tuesday at 10AM Pacific Time<br><a href=\"http://store.steampowered.com/app/24010/\"><img src=\"https://steamcdn-a.akamaihd.net/steam/apps/24010/capsule_467x181.jpg\" style=\" float: left; margin-right: 12px; height: 181px; width: 467px;\"></a>"
+          }
+        }
+      ]
+    },
+    "_id": "https://store.steampowered.com/news/43086/"
+  }
+]

@@ -1,0 +1,283 @@
+{
+    "title": "Left 4 Dead 2 - Update",
+    "description": "An update has been released for Left 4 Dead 2.<br><br>- Fixed some potential remote code execution exploits. Reported via HackerOne. <br>- Updates to caption localization.",
+    "summary": null,
+    "date": "2018-08-21T17:12:00.000Z",
+    "pubdate": "2018-08-21T17:12:00.000Z",
+    "pubDate": "2018-08-21T17:12:00.000Z",
+    "link": "https://store.steampowered.com/news/43151/",
+    "guid": "https://store.steampowered.com/news/43151/",
+    "author": "Valve",
+    "comments": "https://steamcommunity.com//discussions/",
+    "origlink": null,
+    "image": {},
+    "source": {},
+    "categories": [
+      "Valve",
+      "news",
+      "update"
+    ],
+    "enclosures": [],
+    "rdf:@": {
+      "about": "https://store.steampowered.com/news/43151/"
+    },
+    "rdf:title": {
+      "@": {},
+      "#": "Left 4 Dead 2 - Update"
+    },
+    "rdf:link": {
+      "@": {},
+      "#": "https://store.steampowered.com/news/43151/"
+    },
+    "rdf:guid": {
+      "@": {
+        "ispermalink": "true"
+      },
+      "#": "https://store.steampowered.com/news/43151/"
+    },
+    "rdf:comments": {
+      "@": {},
+      "#": "https://steamcommunity.com//discussions/"
+    },
+    "rdf:pubdate": {
+      "@": {},
+      "#": "Tue, 21 Aug 2018 10:12:00 -0700"
+    },
+    "rdf:author": {
+      "@": {},
+      "#": "Valve",
+      "name": "Valve",
+      "email": ""
+    },
+    "rdf:category": {
+      "@": {},
+      "#": "Valve news update"
+    },
+    "dc:subject": {
+      "@": {},
+      "#": "Valve news update"
+    },
+    "dc:creator": {
+      "@": {},
+      "#": "Valve"
+    },
+    "dc:date": {
+      "@": {},
+      "#": "2018-08-21T10:12:00-0700"
+    },
+    "content:encoded": {
+      "@": {},
+      "#": "An update has been released for Left 4 Dead 2.<br><br>- Fixed some potential remote code execution exploits. Reported via HackerOne. <br>- Updates to caption localization."
+    },
+    "meta": {
+      "#ns": [
+        {
+          "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "xmlns:dc": "http://purl.org/dc/elements/1.1/"
+        },
+        {
+          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+        },
+        {
+          "xmlns:content": "http://purl.org/rss/1.0/modules/content/"
+        },
+        {
+          "xmlns:foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "xmlns:cc": "http://web.resource.org/cc/"
+        },
+        {
+          "xmlns:steam": "http://www.steampowered.com"
+        },
+        {
+          "xmlns": "http://purl.org/rss/1.0/"
+        }
+      ],
+      "@": [
+        {
+          "xmlns:rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+        },
+        {
+          "xmlns:dc": "http://purl.org/dc/elements/1.1/"
+        },
+        {
+          "xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/"
+        },
+        {
+          "xmlns:content": "http://purl.org/rss/1.0/modules/content/"
+        },
+        {
+          "xmlns:foaf": "http://xmlns.com/foaf/0.1/"
+        },
+        {
+          "xmlns:cc": "http://web.resource.org/cc/"
+        },
+        {
+          "xmlns:steam": "http://www.steampowered.com"
+        },
+        {
+          "xmlns": "http://purl.org/rss/1.0/"
+        }
+      ],
+      "#xml": {
+        "version": "1.0",
+        "encoding": "UTF-8"
+      },
+      "#type": "rdf",
+      "#version": "1.0",
+      "title": "Steam RSS News Feed",
+      "description": "All Steam news, all the time!",
+      "date": "2018-08-21T17:12:00.000Z",
+      "pubdate": "2018-08-21T17:12:00.000Z",
+      "pubDate": "2018-08-21T17:12:00.000Z",
+      "link": "http://www.steampowered.com/",
+      "xmlurl": null,
+      "xmlUrl": null,
+      "author": null,
+      "language": "en",
+      "favicon": null,
+      "copyright": null,
+      "generator": "http://www.steampowered.com/",
+      "cloud": {},
+      "image": {},
+      "categories": [],
+      "rdf:@": {
+        "about": "http://www.steampowered.com"
+      },
+      "rdf:title": {
+        "@": {},
+        "#": "Steam RSS News Feed"
+      },
+      "rdf:link": {
+        "@": {},
+        "#": "http://www.steampowered.com/"
+      },
+      "rdf:description": {
+        "@": {},
+        "#": "All Steam news, all the time!"
+      },
+      "rdf:language": {
+        "@": {},
+        "#": "en"
+      },
+      "rdf:pubdate": {
+        "@": {},
+        "#": "Tue, 21 Aug 2018 10:12:00 -0700"
+      },
+      "rdf:generator": {
+        "@": {},
+        "#": "http://www.steampowered.com/"
+      },
+      "rdf:items": {
+        "@": {},
+        "seq": {
+          "@": {},
+          "li": [
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43151/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43147/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43142/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43087/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43099/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43086/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43085/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43014/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43012/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42974/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/43005/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42977/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42943/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42964/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42965/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42927/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42938/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42934/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42929/"
+              }
+            },
+            {
+              "@": {
+                "resource": "https://store.steampowered.com/news/42905/"
+              }
+            }
+          ]
+        }
+      }
+    }
+  }

@@ -1,0 +1,45 @@
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://purl.org/rss/1.0/" xmlns:cc="http://web.resource.org/cc/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:steam="http://www.steampowered.com" xmlns:sy="http://purl.org/rss/1.0/modules/syndication/">
+   <item rdf:about="https://store.steampowered.com/news/43087/">
+      <title><![CDATA[Daily Deal - Cultist Simulator, 25% Off]]></title>
+      <link><![CDATA[https://store.steampowered.com/news/43087/]]></link>
+      <guid isPermaLink="true"><![CDATA[https://store.steampowered.com/news/43087/]]></guid>
+      <comments>https://steamcommunity.com//discussions/</comments>
+      <pubDate>Mon, 20 Aug 2018 10:05:00 -0400</pubDate>
+      <author>Valve</author>
+      <category>Valve news update</category>
+      <dc:subject>Valve news update</dc:subject>
+      <dc:creator>Valve</dc:creator>
+      <dc:date>2018-08-20T10:05:00-0400</dc:date>
+      <content:encoded><![CDATA[Today's Deal: Save 25% on <a href='http://store.steampowered.com/app/718670/'>Cultist Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Wednesday at 10AM Pacific Time<br><a href="http://store.steampowered.com/app/718670/"><img src="https://steamcdn-a.akamaihd.net/steam/apps/718670/capsule_467x181.jpg" style=" float: left; margin-right: 12px; height: 181px; width: 467px;"></a>]]></content:encoded>
+   </item>
+   <item rdf:about="https://store.steampowered.com/news/43099/">
+      <title><![CDATA[Dota 2 Update - August 19th, 2018]]></title>
+      <link><![CDATA[https://store.steampowered.com/news/43099/]]></link>
+      <guid isPermaLink="true"><![CDATA[https://store.steampowered.com/news/43099/]]></guid>
+      <comments>https://steamcommunity.com//discussions/</comments>
+      <pubDate>Sun, 19 Aug 2018 12:07:00 -0400</pubDate>
+      <author>Valve</author>
+      <category>Valve news update</category>
+      <dc:subject>Valve news update</dc:subject>
+      <dc:creator>Valve</dc:creator>
+      <dc:date>2018-08-19T12:07:00-0400</dc:date>
+      <content:encoded><![CDATA[- Fixed a bug with the interaction of Undying's respawn talent and Wraith King's Aghanim's Scepter upgrade.<br>- Fixed a bug with Windranger's Sylvan Vedette and her Focus Fire ability.]]></content:encoded>
+   </item>
+   <item rdf:about="https://store.steampowered.com/news/43086/">
+      <title><![CDATA[Daily Deal - Train Simulator, 77% Off]]></title>
+      <link><![CDATA[https://store.steampowered.com/news/43086/]]></link>
+      <guid isPermaLink="true"><![CDATA[https://store.steampowered.com/news/43086/]]></guid>
+      <comments>https://steamcommunity.com//discussions/</comments>
+      <pubDate>Sun, 19 Aug 2018 10:05:00 -0400</pubDate>
+      <author>Valve</author>
+      <category>Valve news update</category>
+      <dc:subject>Valve news update</dc:subject>
+      <dc:creator>Valve</dc:creator>
+      <dc:date>2018-08-19T10:05:00-0400</dc:date>
+      <content:encoded><![CDATA[Today's Deal: Save 77% on <a href='http://store.steampowered.com/app/24010/'>Train Simulator</a>!*<br><br>Look for the deals each day on the front page of Steam.  Or follow us on <a href='http://twitter.com/steam_games'>twitter</a> or <a href='http://www.facebook.com/Steam'>Facebook</a> for instant notifications wherever you are!<br><br>*Offer ends Tuesday at 10AM Pacific Time<br><a href="http://store.steampowered.com/app/24010/"><img src="https://steamcdn-a.akamaihd.net/steam/apps/24010/capsule_467x181.jpg" style=" float: left; margin-right: 12px; height: 181px; width: 467px;"></a>]]></content:encoded>
+   </item>
+</rdf:RDF>
+
