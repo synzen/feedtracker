@@ -1,3 +1,5 @@
+![Build Passing Badge](https://travis-ci.org/synzen/feed-tracker.svg?branch=master)
+
 A non-Discord bot version of [Discord.RSS](https://github.com/synzen/Discord.RSS), built upon the same reliable, time-tested logic to track feeds and receive new articles. 
 
 ```js
