@@ -25,7 +25,7 @@ function regexReplace (string, searchOptions, replacement) {
           string = string.replace(exp, replacement)
         }
       } else if (matchIndex && groupNum === undefined) { // If no group number is defined, use the full match of this particular match number in the original string
-        const exp = new RegExp(this.consturctor._escapeRegExp(matches[matchIndex][0]), flags)
+        const exp = new RegExp(this.constructor._escapeRegExp(matches[matchIndex][0]), flags)
         string = string.replace(exp, replacement)
       } else {
         const exp = new RegExp(this.constructor._escapeRegExp(matches[matchIndex][groupNum]), flags)
@@ -228,19 +228,19 @@ module.exports = class Article {
   }
 
   // To avoid stack call exceeded
-  _checkType (item, results) {
+  static _checkType (item, results) {
     if (Object.prototype.toString.call(item) === '[object Object]') {
-      return () => this.constructor._findImages(item, results)
+      return () => Article._findImages(item, results)
     } else if (typeof item === 'string' && item.match(/\.(jpg|jpeg|png|gif|bmp|webp)$/i) && !results.includes(item) && results.length < 9) {
       if (item.startsWith('//')) item = 'http:' + item
       results.push(item)
     }
   }
 
-// Used to find images in any object values of the article
-  _findImages (obj, results) {
+  // Used to find images in any object values of the article
+  static _findImages (obj, results) {
     for (let key in obj) {
-      let value = this.constructor._checkType(obj[key], results)
+      let value = Article._checkType(obj[key], results)
       while (typeof value === 'function') {
         value = value()
       }

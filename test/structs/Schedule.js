@@ -86,15 +86,16 @@ describe('Schedule', function () {
       nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
       feed = new Feed(url)
       await schedule.addFeed(feed)
-      fs.writeFileSync('./test/files/articleList.json', JSON.stringify(feed._articleList, null, 2))
     })
     it('should emit "article" on new articles', async function () {
       const spy = sinon.spy()
+      schedule.on('article', () => {
+        console.log('woah')
+      })
       schedule.on('article', spy)
       nock('http://localhost').get('/feed.xml').reply(200, feed3Articles)
       await schedule._run()
       expect(spy.calledOnce).to.equal(true)
-      fs.writeFileSync('./test/files/articleListWithOneMore.json', JSON.stringify(feed._articleList, null, 2))
     })
     it('should not emit "article" when there are no new articles in the xml', async function () {
       nock('http://localhost').get('/feed.xml').reply(200, feed3Articles)
