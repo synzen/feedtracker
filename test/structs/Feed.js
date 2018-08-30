@@ -12,6 +12,15 @@ describe('Feed', function () {
   before(function () {
     nock('http://localhost').get('/feed.xml').reply(200, feedTwoArticles)
   })
+  it('should generate a string id in constructor', function () {
+    expect(feed.id).to.be.a('string')
+    expect(feed.id).to.have.length.greaterThan(0)
+  })
+  describe('with no link in constructor', function () {
+    it('should throw a TypeError', function () {
+      expect(() => new Feed()).to.throw(TypeError)
+    })
+  })
   describe('.toJSON()', function () {
     const json = feed.toJSON()
     it('should return an object', function () {

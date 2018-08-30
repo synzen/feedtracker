@@ -33,6 +33,20 @@ describe('Schedule', function () {
       expect(addFeedsPromise.then).to.be.a('function')
       expect(addFeedsPromise.catch).to.be.a('function')
     })
+    describe('with Array input', function () {
+      it.skip('with Feed array contents should resolve the promise', async function () {
+        await schedule.addFeeds([new Feed(url), new Feed(url)])
+      })
+      it.skip('with non-Feed array contents should reject the promise', async function () {
+        let rejectionErr
+        try {
+          await schedule.addFeeds([new Feed(url), 1, 2])
+        } catch (err) {
+          rejectionErr = err
+        }
+        expect(rejectionErr).to.be.instanceOf(TypeError)
+      })
+    })
     it(`should add to this.feeds the right amount`, async function () {
       await addFeedsPromise
       scope.persist(false)
@@ -68,6 +82,15 @@ describe('Schedule', function () {
       expect(addFeedPromise.then).to.be.a('function')
       expect(addFeedPromise.catch).to.be.a('function')
     })
+    it('should reject with TypError on non-Feed input', async function () {
+      let rejectionErr
+      try {
+        await schedule.addFeed()
+      } catch (err) {
+        rejectionErr = err
+      }
+      expect(rejectionErr).to.be.instanceOf(TypeError)
+    })
     it('should add to this.feeds by 1', async function () {
       await addFeedPromise
       expect(Object.keys(schedule.feeds).length).to.equal(1)
@@ -89,9 +112,6 @@ describe('Schedule', function () {
     })
     it('should emit "article" on new articles', async function () {
       const spy = sinon.spy()
-      schedule.on('article', () => {
-        console.log('woah')
-      })
       schedule.on('article', spy)
       nock('http://localhost').get('/feed.xml').reply(200, feed3Articles)
       await schedule._run()

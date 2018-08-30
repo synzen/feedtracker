@@ -1,0 +1,25 @@
+{
+    "one": "https://www.foobar.com/one.jpg",
+    "two": {
+      "three": "https://www.foobar.com/three.jpeg",
+      "four": {
+        "five": "https://www.foobar.com/five.png",
+        "six": {
+          "seven": "https://www.foobar.com/seven.gif",
+          "eight": {
+            "nine": "https://www.foobar.com/nine.bmp",
+            "ten": {
+              "eleven": "https://www.foobar.com/eleven.webp",
+              "thirteen": "//www.foobar.com/eleven.webp",
+              "foo": "bar"
+            },
+            "foo": "bar"
+          },
+          "foo": "bar"
+        },
+        "foo": "bar"
+      },
+      "foo": "bar"
+    },
+    "foo": "bar"
+  }
