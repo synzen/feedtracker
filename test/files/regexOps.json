@@ -1,0 +1,56 @@
+{
+    "regexOps": {
+        "disabled": ["title"],
+        "title": [{}],
+        "description": [{
+            "disabled": true
+        }],
+        "author": [{
+            "name": "authorname",
+            "search": {
+                "flags": "gi",
+                "regex": "foobar"
+            },
+            "replacement": ""
+        }],
+        "authortwo": [{
+            "name": "authortwoname",
+            "search": {
+                "flags": "gi",
+                "regex": "foobar"
+            }
+        }],
+        "summary": [{
+            "name": "summarynameone",
+            "search": {
+                "flags": "gi",
+                "regex": "foobar"
+            },
+            "replacement": ""
+        },
+        {
+            "name": "summarynametwo",
+            "search": {
+                "flags": "i",
+                "regex": "foobar2"
+            },
+            "replacement": "foobar3"
+        }],
+        "summarytwo": [{
+            "name": "summarychained",
+            "search": {
+                "flags": "gi",
+                "regex": "foobar"
+            },
+            "replacement": ""
+        },
+        {
+            "name": "summarychained",
+            "search": {
+                "flags": "i",
+                "regex": "2"
+            },
+            "replacement": "replaced2"
+        }]
+    }
+}
