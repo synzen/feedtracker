@@ -8,6 +8,8 @@
     "mocha-test:unit": "mocha --recursive --grep ^Unit:: ",
     "mocha-test:int": "mocha --recursive --grep ^Int:: ",
     "test": "nyc --reporter=html --reporter=text mocha --recursive",
+    "test:unit": "nyc --reporter=html --reporter=text mocha --recursive --grep ^Unit:: ",
+    "test:int": "nyc --reporter=html --reporter=text mocha --recursive --grep ^Int:: ",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "author": "synzen",

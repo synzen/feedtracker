@@ -29,23 +29,12 @@ describe('Int::Schedule', function () {
       scope = nock('http://localhost').persist().get('/feed.xml').reply(200, feed2Articles)
       addFeedsPromise = schedule.addFeeds(toAdd)
     })
-    describe('with Array input', function () {
-      it.skip('with Feed array contents should resolve the promise', async function () {
-        await schedule.addFeeds([new Feed(url), new Feed(url)])
-      })
-      it.skip('with non-Feed array contents should reject the promise', async function () {
-        let rejectionErr
-        try {
-          await schedule.addFeeds([new Feed(url), 1, 2])
-        } catch (err) {
-          rejectionErr = err
-        }
-        expect(rejectionErr).to.be.instanceOf(TypeError)
-      })
+    after(function () {
+      scope.persist(false)
+      nock.cleanAll()
     })
     it(`should add to this.feeds the right amount`, async function () {
       await addFeedsPromise
-      scope.persist(false)
       expect(Object.keys(schedule.feeds).length).to.equal(toAdd.length)
     })
     it(`should have the added feeds in this.feeds for this schedule`, function () {
@@ -58,6 +47,16 @@ describe('Int::Schedule', function () {
         const feed = schedule.feeds[id]
         expect(feed._articleList.length).to.be.greaterThan(0)
       }
+    })
+    describe('with Array input', function () {
+      it('with Feed array contents should resolve the promise', async function () {
+        await schedule.addFeeds([new Feed(url), new Feed(url)])
+      })
+      it('with non-Feed array contents should reject the promise', function (done) {
+        schedule.addFeeds([new Feed(url), 1, 2])
+          .then(() => done(new Error('Promise resolved with non-Feed array contents')))
+          .catch(() => done())
+      })
     })
   })
 
@@ -98,6 +97,9 @@ describe('Int::Schedule', function () {
       feed = new Feed(url)
       await schedule.addFeed(feed)
     })
+    after(function () {
+      nock.cleanAll()
+    })
     it('should emit "article" on new articles', async function () {
       const spy = sinon.spy()
       schedule.on('article', spy)
@@ -129,5 +131,45 @@ describe('Int::Schedule', function () {
       expect(spy.calledOnce).to.equal(true)
     })
   })
-  describe.skip('parallel-isolated processing method')
+  describe('parallel-isolated processing method', function () {
+    let schedule
+    let feed
+    before(async function () {
+      nock.cleanAll()
+      schedule = new Schedule(0, '', { processingMethod: 'parallel-isolated' })
+      nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
+      feed = new Feed(url)
+      await schedule.addFeed(feed)
+    })
+    after(function () {
+      nock.cleanAll()
+    })
+    it('should emit "article" on new articles', async function () {
+      const spy = sinon.spy()
+      schedule.on('article', spy)
+      await schedule._run(feed3Articles)
+      expect(spy.calledOnce).to.equal(true)
+    })
+    it('should not emit "article" when there are no new articles in the xml', async function () {
+      const spy = sinon.spy()
+      schedule.on('article', spy)
+      await schedule._run(feed3Articles)
+      expect(spy.notCalled).to.equal(true)
+    })
+    it('should have an Article and the feed link in the "article" listener args', async function () {
+      nock.cleanAll()
+      const spy = sinon.spy()
+      schedule.on('article', spy)
+      await schedule._run(feed4Articles)
+      expect(spy.calledOnce).to.equal(true)
+      expect(spy.getCall(0).args[0]).to.be.an.instanceOf(Article)
+      expect(spy.getCall(0).args[1]).to.equal(url)
+    })
+    it('should emit "err" once on feeds with non-200 status codes', async function () {
+      const spy = sinon.spy()
+      schedule.on('err', spy)
+      await schedule._run(feed4Articles, 500)
+      expect(spy.calledOnce).to.equal(true)
+    })
+  })
 })

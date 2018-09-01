@@ -32,4 +32,10 @@ describe('Unit::getArticles', function () {
       .then(() => done(new Error('Promise resolved with a non-feed link')))
       .catch(() => done())
   })
+  it('should reject with a non-200 status code', function (done) {
+    nock('http://localhost').get('/feed.xml').reply(500, feedTwoArticles)
+    getArticles(url)
+      .then(() => done(new Error('Promise with a non-200 status code')))
+      .catch(() => done())
+  })
 })

@@ -10,7 +10,7 @@ describe('Unit::Article', function () {
   before(function () {
     regexOps = JSON.parse(fs.readFileSync('./test/files/regexOps.json'))
     rawArticleWithImages = JSON.parse(fs.readFileSync('./test/files/articleWithImages.json'))
-    rawArticleWithImages.pubdate = new Date(rawArticleWithImages.pubdate)
+    // rawArticleWithImages.pubdate = new Date(rawArticleWithImages.pubdate)
     articleWithImages = new Article(rawArticleWithImages)
   })
   it('should have this.reddit = true if the raw meta link includes www.reddit.com', function () {

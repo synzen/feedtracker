@@ -38,7 +38,7 @@ class Schedule extends EventEmitter {
     this.feeds[feed.id] = feed
   }
 
-  _run () {
+  _run (nockFile, statusCode) {
     return new Promise((resolve, reject) => {
       // Generate batch links
       let batch = []
@@ -59,7 +59,7 @@ class Schedule extends EventEmitter {
           this._getBatch(0, this._batchList).then(resolve)
           break
         case 'parallel-isolated':
-          this._getBatchParallel().then(resolve)
+          this._getBatchParallel(nockFile, statusCode).then(resolve)
           break
       }
     })
@@ -90,7 +90,7 @@ class Schedule extends EventEmitter {
     })
   }
 
-  _getBatchParallel () {
+  _getBatchParallel (nockFile, statusCode) {
     return new Promise((resolve, reject) => {
       if (this._batchList.length === 0) return resolve(this._finishCycle())
       const config = { advanced: { parallel: 2 } }
@@ -115,7 +115,7 @@ class Schedule extends EventEmitter {
           if (linkCompletion.status === 'failed') {
             this.emit('err', new Error(linkCompletion.errMessage))
           } else if (linkCompletion.status === 'success') {
-            this.feeds[linkCompletion.feedJSONId]._ovewriteOldArticles(linkCompletion.seenArticleList) // Only if config.database.uri is a databaseless folder path
+            this.feeds[linkCompletion.feedJSONId]._overwriteOldArticles(linkCompletion.seenArticleList) // Only if config.database.uri is a databaseless folder path
           }
           // console.log('done 1')
           ++this._cycleTotalCount
@@ -123,15 +123,14 @@ class Schedule extends EventEmitter {
             completedBatches++
             processor.kill()
             if (completedBatches === totalBatchLengths) {
-              // console.log('done')
               this._processorList.length = 0
               this._processorList = []
-              resolve(this._finishCycle)
+              resolve(this._finishCycle())
             }
           }
         })
 
-        processor.send({ currentBatch: currentBatch })
+        processor.send({ currentBatch: currentBatch, nockFile: nockFile.toString(), statusCode })
       }
 
       function spawn (count) {
@@ -153,7 +152,6 @@ class Schedule extends EventEmitter {
   }
 
   async _finishCycle () {
-    // console.log('finished cycle')
     this._batchList.length = 0
   }
 }

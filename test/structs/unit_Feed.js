@@ -54,4 +54,11 @@ describe('Unit::Feed', function () {
       getArticles.restore()
     })
   })
+
+  describe('._overwriteOldArticles', function () {
+    const toOverwriteWith = [1, 2, 3]
+    expect(feed._articleList).to.not.have.members(toOverwriteWith)
+    feed._overwriteOldArticles(toOverwriteWith)
+    expect(feed._articleList).to.equal(toOverwriteWith)
+  })
 })

@@ -284,7 +284,7 @@ describe('Unit::Schedule', function () {
           }
         })
         article = JSON.parse(fs.readFileSync('./test/files/article.json'))
-        article.pubdate = new Date(article.pubdate)
+        // article.pubdate = new Date(article.pubdate)
         schedule = new Schedule()
       })
       it('should emit articles', async function () {
@@ -304,7 +304,6 @@ describe('Unit::Schedule', function () {
 
   describe('._getBatchParallel', function () {
     const callbackFeedJSONId = 123
-    const callbackSeenArticleList = []
     it('returns a promise', function () {
       const schedule = new Schedule()
       schedule.feeds[callbackFeedJSONId] = new FeedMock()

@@ -36,6 +36,7 @@ class Article {
     this.guid = raw.guid ? raw.guid : ''
 
     // Date
+    if (!(raw.pubdate instanceof Date)) raw.pubdate = new Date(raw.pubdate)
     if (raw.pubdate && raw.pubdate.toString() !== 'Invalid Date') {
       const feedTimezone = this.feedConfig.timezone
       const timezone = feedTimezone && moment.tz.zone(feedTimezone) ? feedTimezone : globalConfig.timezone

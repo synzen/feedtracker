@@ -3,10 +3,12 @@ const logic = require('../util/logic.js')
 
 process.on('message', async m => {
   const currentBatch = m.currentBatch
-  let a = 0
-  setInterval(() => {
-    console.log('pinging ' + a)
-  }, 1000)
+  const nockFile = m.nockFile
+  if (nockFile) require('nock')('http://localhost').get('/feed.xml').reply(m.statusCode || 200, nockFile).persist()
+  // let a = 0
+  // setInterval(() => {
+  //   console.log('pinging ' + a)
+  // }, 1000)
   const len = Object.keys(currentBatch).length
   let c = 0
   for (let feedJSON of currentBatch) {
