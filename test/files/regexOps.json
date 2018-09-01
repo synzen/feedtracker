@@ -51,6 +51,7 @@
                 "regex": "2"
             },
             "replacement": "replaced2"
-        }]
+        }],
+        "link": "foobar"
     }
 }

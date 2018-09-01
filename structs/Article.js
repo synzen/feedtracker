@@ -8,9 +8,9 @@ class Article {
     this.feedConfig = feedConfig
     this.raw = raw
     this.reddit = raw.meta.link && raw.meta.link.includes('www.reddit.com')
-    this.youtube = raw.guid && raw.guid.startsWith('yt:video') && raw['media:group'] && raw['media:group']['media:description'] && raw['media:group']['media:description']['#']
-    this.enabledRegex = typeof this.feedConfig.regexOps === 'object' && this.feedConfig.regexOps.disabled !== true
-    this.placeholdersForRegex = BASE_REGEX_PHS.slice()
+    this.youtube = !!(raw.guid && raw.guid.startsWith('yt:video') && raw['media:group'] && raw['media:group']['media:description'] && raw['media:group']['media:description']['#'])
+    this.enabledRegex = typeof this.feedConfig.regexOps === 'object'
+    this.placeholdersForRegex = this.enabledRegex ? BASE_REGEX_PHS.slice() : []
     this.meta = raw.meta
     this.guid = raw.guid
     this.author = raw.author ? this.constructor._cleanup(this.feedConfig, raw.author) : ''
@@ -42,17 +42,17 @@ class Article {
       const dateFormat = this.feedConfig.dateFormat ? this.feedConfig.dateFormat : globalConfig.dateFormat
 
       const useDateFallback = globalConfig.dateFallback === true && (!raw.pubdate || raw.pubdate.toString() === 'Invalid Date')
-      let useTimeFallback = globalConfig.timeFallback === true && raw.pubdate.toString() !== 'Invalid Date'
+      this.useTimeFallback = globalConfig.timeFallback === true && raw.pubdate.toString() !== 'Invalid Date'
       const toCheck = [raw.pubdate.getUTCHours(), raw.pubdate.getMinutes(), raw.pubdate.getSeconds(), raw.pubdate.getMilliseconds()]
       toCheck.forEach(part => {
-        if (part !== 0) useTimeFallback = false // If any of the above is equal to 0, use the fallback
+        if (part !== 0) this.useTimeFallback = false // If any of the above is equal to 0, use the fallback
       })
 
       const date = useDateFallback ? new Date() : raw.pubdate
       const localMoment = moment(date)
       if (this.feedConfig.dateLanguage) localMoment.locale(this.feedConfig.dateLanguage)
       const now = new Date()
-      const vanityDate = useTimeFallback ? localMoment.hours(now.getHours()).minutes(now.getMinutes()).seconds(now.getSeconds()).millisecond(now.getMilliseconds()).tz(timezone).format(dateFormat) : localMoment.tz(timezone).format(dateFormat)
+      const vanityDate = this.useTimeFallback ? localMoment.hours(now.getHours()).minutes(now.getMinutes()).seconds(now.getSeconds()).millisecond(now.getMilliseconds()).tz(timezone).format(dateFormat) : localMoment.tz(timezone).format(dateFormat)
       this.date = (vanityDate !== 'Invalid Date') ? vanityDate : ''
       this.rawDate = raw.pubdate
     }
@@ -68,7 +68,7 @@ class Article {
     }
     for (let desAnchorNum = 0; desAnchorNum < this.descriptionAnchors.length; ++desAnchorNum) {
       const term = `description:anchor${desAnchorNum + 1}`
-      this[term] = this.descriptionImages[desAnchorNum]
+      this[term] = this.descriptionAnchors[desAnchorNum]
       if (this.enabledRegex) this.placeholdersForRegex.push(term)
     }
 
@@ -117,6 +117,10 @@ class Article {
         this.regexPlaceholders[placeholderName] = regexResults
       }
     }
+  }
+
+  static get BASE_REGEX_PHS () {
+    return BASE_REGEX_PHS
   }
 
   static _escapeRegExp (str) {
@@ -202,10 +206,7 @@ class Article {
         if (!customPlaceholders[regexOp.name]) customPlaceholders[regexOp.name] = text // Initialize with a value if it doesn't exist
 
         const clone = Object.assign({}, customPlaceholders)
-
-        const modified = Article._regexReplace(clone[regexOp.name], regexOp.search, regexOp.replacement)
-        if (modified instanceof Error) throw modified
-        else customPlaceholders[regexOp.name] = modified // newText = modified
+        customPlaceholders[regexOp.name] = Article._regexReplace(clone[regexOp.name], regexOp.search, regexOp.replacement) // newText = modified
       }
     } else return null
     return customPlaceholders
@@ -224,7 +225,11 @@ class Article {
       if (match) matches.push(match)
     } while (match)
     if (matches.length === 0) return string
-    else match = matches[matchIndex || 0][groupNum || 0]
+    else {
+      const mi = matches[matchIndex || 0]
+      if (!mi) return string
+      else match = mi[groupNum || 0]
+    }
 
     if (replacement !== undefined) {
       if (matchIndex === undefined && groupNum === undefined) { // If no match or group is defined, replace every full match of the search in the original string
@@ -234,6 +239,9 @@ class Article {
         }
       } else if (matchIndex && groupNum === undefined) { // If no group number is defined, use the full match of this particular match number in the original string
         const exp = new RegExp(Article._escapeRegExp(matches[matchIndex][0]), flags)
+        string = string.replace(exp, replacement)
+      } else if (matchIndex === undefined && groupNum) {
+        const exp = new RegExp(Article._escapeRegExp(matches[0][groupNum]), flags)
         string = string.replace(exp, replacement)
       } else {
         const exp = new RegExp(Article._escapeRegExp(matches[matchIndex][groupNum]), flags)
