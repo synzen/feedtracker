@@ -2,23 +2,13 @@
 
 const expect = require('chai').expect
 const Article = require('../../structs/Article.js')
-const nock = require('nock')
 const fs = require('fs')
-const unconvertedArticle = JSON.parse(fs.readFileSync('./test/files/article.json'))
 const nestedImages = JSON.parse(fs.readFileSync('./test/files/nestedImages.json'))
 const regexOps = JSON.parse(fs.readFileSync('./test/files/regexOps.json'))
 
-describe('Article', function () {
+describe('Int::Article', function () {
   before(function () {
     process.env.feedwatch_test = true
-  })
-  describe('static ._escapeRegExp', function () {
-    it('should escape regex properly', function () {
-      const str = '\\ ^ $ * + ? . ( ) | { } [ ]'
-      const escaped = Article._escapeRegExp(str)
-      const regexp = new RegExp(escaped)
-      expect(regexp.test(str)).to.equal(true)
-    })
   })
   describe('static ._findImages', function () {
     it('should put all images in a deeply nested object in an array', function () {
@@ -38,9 +28,6 @@ describe('Article', function () {
   })
 
   describe('static ._evalRegexConfig', function () {
-    it('should return null when the placeholder type is in the regexOps.disabled array', function () {
-      expect(Article._evalRegexConfig(regexOps, '', 'title')).to.be.a('null')
-    })
     it('should return an empty object when there is only one regexOp for a placeholder type and it has disabled set to true', function () {
       const results = Article._evalRegexConfig(regexOps, '', 'description')
       expect(Object.keys(results).length).to.equal(0)
@@ -75,15 +62,5 @@ describe('Article', function () {
       expect(results).to.have.keys('summarychained')
       expect(results.summarychained).to.equal(' replaced2 3')
     })
-    // describe('feedConfig with regexOps key "disabled" array has a field', function () {
-    //   it('should return null when the field is the input', function () {
-
-    //   })
-    //   it('should return an object when the field is not the input', function () {
-    //     const feedConfig = { regexOps: { disabled: ['description'], title: [] } }
-    //     expect(Article._evalRegexConfig(feedConfig, '', 'title')).to.be.a('object')
-    //   })
-    // })
-    // describe('feedConfig')
   })
 })

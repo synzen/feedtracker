@@ -5,16 +5,32 @@ const sinon = require('sinon')
 const expect = require('chai').expect
 const fs = require('fs')
 
-describe('logic', function () {
+describe('Unit::logic', function () {
   let feedJSON
+  let feedJSONEmptySeen
   let article2List
   let article3List
   const articleObjectKeys = ['status', 'article', 'link']
   const successObjectKeys = ['status', 'link', 'seenArticleList', 'feedJSONId']
   before(function () {
     feedJSON = JSON.parse(fs.readFileSync('./test/files/feedJSON.json'))
+    feedJSONEmptySeen = JSON.parse(fs.readFileSync('./test/files/feedJSONEmptySeen.json'))
     article2List = JSON.parse(fs.readFileSync('./test/files/article2List.json'))
     article3List = JSON.parse(fs.readFileSync('./test/files/article3List.json'))
+  })
+  describe('with empty seenArticleList and article2List', function () {
+    it('should callback with a success object', function () {
+      const spy = sinon.spy()
+      logic({ articleList: article2List, feedJSON: feedJSONEmptySeen }, spy)
+      expect(spy.lastCall.args[0]).to.be.a('null')
+      expect(spy.lastCall.args[1]).to.be.a('object').and.have.keys(successObjectKeys)
+    })
+    it('should not callback any articles since it is likely first time initialization', function () {
+      const spy = sinon.spy()
+      logic({ articleList: article2List, feedJSON: feedJSONEmptySeen }, spy)
+      const spyCalls = spy.getCalls()
+      spyCalls.forEach(call => expect(call.args[1].status).to.not.equal('article'))
+    })
   })
   describe('with the same seenArticleList and article2List', function () {
     it('should callback with a success object', function () {

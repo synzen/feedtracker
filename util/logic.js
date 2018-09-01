@@ -1,5 +1,6 @@
 const moment = require('moment-timezone')
 const EXCLUDED_CUSTOM_COMPARISONS = ['title', 'guid', 'pubdate', 'pubDate', undefined]
+
 module.exports = (data, callback) => {
   const { articleList, feedJSON } = data
   const totalArticles = articleList.length
@@ -47,7 +48,7 @@ module.exports = (data, callback) => {
 
   for (let a = articleList.length - 1; a >= 0; --a) { // Loop from oldest to newest so the queue that sends articleMessages work properly, sending the older ones first
     const article = articleList[a]
-    if (dbIds.length === 0 && articleList.length !== 1) { // Only skip if the articleList length is !== 1, otherwise a feed with only 1 article to send since it may have been the first item added
+    if (dbIds.length === 0 && articleList.length > 1) { // Only skip if the articleList length is !== 1, otherwise a feed with only 1 article to send since it may have been the first item added
       seenArticle(true, article)
     } else if (dbIds.includes(article._id)) {
       seenArticle(true, article)

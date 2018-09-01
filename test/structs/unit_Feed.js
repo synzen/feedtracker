@@ -1,13 +1,14 @@
 /* eslint-env mocha */
 
 const chai = require('chai')
+const sinon = require('sinon')
 const expect = chai.expect
 const Feed = require('../../structs/Feed.js')
 const nock = require('nock')
 const fs = require('fs')
 const feedTwoArticles = fs.readFileSync('./test/files/feed2Articles.xml')
 
-describe('Feed', function () {
+describe('Unit::Feed', function () {
   const feed = new Feed('http://localhost/feed.xml')
   before(function () {
     nock('http://localhost').get('/feed.xml').reply(200, feedTwoArticles)
@@ -41,9 +42,16 @@ describe('Feed', function () {
       expect(prom.then).to.be.a('function')
       expect(prom.catch).to.be.a('function')
     })
-    it('should resolve with an array', async function () {
-      const arr = await prom
-      expect(arr).to.be.an('array')
+  })
+
+  describe('._initialize', function () {
+    it('should concat this._articleList with the resolved array array', async function () {
+      const originalLength = feed._articleList.length
+      const resolved = [1, 2]
+      const getArticles = sinon.stub(feed, 'getArticles').resolves(resolved)
+      await feed._initialize()
+      expect(feed._articleList.length).to.equal(originalLength + resolved.length)
+      getArticles.restore()
     })
   })
 })

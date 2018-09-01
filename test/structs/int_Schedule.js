@@ -11,7 +11,7 @@ const feed2Articles = fs.readFileSync('./test/files/feed2Articles.xml')
 const feed3Articles = fs.readFileSync('./test/files/feed3Articles.xml')
 const feed4Articles = fs.readFileSync('./test/files/feed4Articles.xml')
 
-describe('Schedule', function () {
+describe('Int::Schedule', function () {
   let url
   before(function () {
     url = 'http://localhost/feed.xml'
@@ -28,10 +28,6 @@ describe('Schedule', function () {
       toAddIds = toAdd.map(v => v.id)
       scope = nock('http://localhost').persist().get('/feed.xml').reply(200, feed2Articles)
       addFeedsPromise = schedule.addFeeds(toAdd)
-    })
-    it('should return a Promise', function () {
-      expect(addFeedsPromise.then).to.be.a('function')
-      expect(addFeedsPromise.catch).to.be.a('function')
     })
     describe('with Array input', function () {
       it.skip('with Feed array contents should resolve the promise', async function () {
@@ -78,18 +74,10 @@ describe('Schedule', function () {
       schedule = new Schedule()
       addFeedPromise = schedule.addFeed(feed)
     })
-    it('should return a Promise', function () {
-      expect(addFeedPromise.then).to.be.a('function')
-      expect(addFeedPromise.catch).to.be.a('function')
-    })
-    it('should reject with TypError on non-Feed input', async function () {
-      let rejectionErr
-      try {
-        await schedule.addFeed()
-      } catch (err) {
-        rejectionErr = err
-      }
-      expect(rejectionErr).to.be.instanceOf(TypeError)
+    it('should reject on non-Feed input', function (done) {
+      schedule.addFeed()
+        .then(() => done(new Error('Promise resolved with a non-Feed input')))
+        .catch(() => done())
     })
     it('should add to this.feeds by 1', async function () {
       await addFeedPromise

@@ -3,18 +3,18 @@ const Article = require('./Article')
 const EventEmitter = require('events')
 const childProcess = require('child_process')
 const batchLogic = require('../methods/concurrent.js')
-const BATCH_SIZE = 300
 
 class Schedule extends EventEmitter {
-  constructor (processingMethod = 'concurrent', interval, name, keywords) {
+  constructor (interval, name, options = {}) {
     super()
     this.name = name
-    this.keywords = keywords
+    this.keywords = options.keywords
     this.interval = interval
-    this.processingMethod = processingMethod !== 'concurrent' && processingMethod !== 'parallel-isolated' ? 'concurrent' : processingMethod
+    this.processingMethod = options.processingMethod !== 'concurrent' && options.processingMethod !== 'parallel-isolated' ? 'concurrent' : options.processingMethod
     this.feeds = {}
     this._batchList = []
     this._processorList = []
+    this.batchSize = 300
   }
 
   async addFeeds (feeds) {
@@ -43,9 +43,9 @@ class Schedule extends EventEmitter {
       // Generate batch links
       let batch = []
 
-      for (let id in this.feeds) { // options per link
+      for (const id in this.feeds) { // options per link
         const feed = this.feeds[id]
-        if (Object.keys(batch).length >= BATCH_SIZE) {
+        if (Object.keys(batch).length >= this.batchSize) {
           this._batchList.push(batch)
           batch = []
         }
@@ -53,7 +53,7 @@ class Schedule extends EventEmitter {
       }
       if (Object.keys(batch).length > 0) this._batchList.push(batch)
 
-      if (this._batchList.length === 0) return // console.log('No links to retrieve')
+      if (this._batchList.length === 0) return resolve()// console.log('No links to retrieve')
       switch (this.processingMethod) {
         case 'concurrent':
           this._getBatch(0, this._batchList).then(resolve)
@@ -83,7 +83,7 @@ class Schedule extends EventEmitter {
 
         ++this._cycleTotalCount
         if (++completedLinks === currentBatchLen) {
-          if (batchNumber !== batchList.length - 1) setTimeout(this._getBatch.bind(this), 200, batchNumber + 1, batchList)
+          if (batchNumber !== batchList.length - 1) this._getBatch(batchNumber + 1, batchList)
           else {
             resolve()
             return this._finishCycle()
