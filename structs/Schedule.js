@@ -67,27 +67,24 @@ class Schedule extends EventEmitter {
 
   _getBatch (batchNumber, batchList) {
     return new Promise((resolve, reject) => {
-      if (batchList.length === 0) return
+      if (batchList.length === 0) return resolve(this._finishCycle())
       const currentBatch = batchList[batchNumber]
       const currentBatchLen = currentBatch.length
       let completedLinks = 0
 
       batchLogic({ currentBatch: currentBatch }, (err, linkCompletion) => {
-        if (err) this.emit('err', err)// console.log(err)
-        if (linkCompletion.status === 'article') return this.emit('article', new Article(linkCompletion.article), linkCompletion.link)
-        if (linkCompletion.status === 'failed') this.emit('err', linkCompletion.err, linkCompletion.link)
+        if (err) this.emit('err', err)
+        else if (linkCompletion.status === 'article') return this.emit('article', new Article(linkCompletion.article), linkCompletion.link)
+        else if (linkCompletion.status === 'failed') this.emit('err', linkCompletion.err, linkCompletion.link)
         else if (linkCompletion.status === 'success') {
           // console.log('success' + linkCompletion.link)
-          this.feeds[linkCompletion.feedJSONId]._ovewriteOldArticles(linkCompletion.seenArticleList) // Only if config.database.uri is a databaseless folder path
+          this.feeds[linkCompletion.feedJSONId]._overwriteOldArticles(linkCompletion.seenArticleList) // Only if config.database.uri is a databaseless folder path
         }
 
         ++this._cycleTotalCount
         if (++completedLinks === currentBatchLen) {
-          if (batchNumber !== batchList.length - 1) this._getBatch(batchNumber + 1, batchList)
-          else {
-            resolve()
-            return this._finishCycle()
-          }
+          if (batchNumber !== batchList.length - 1) return resolve(this._getBatch(batchNumber + 1, batchList))
+          else return resolve(this._finishCycle())
         }
       })
     })
@@ -95,6 +92,7 @@ class Schedule extends EventEmitter {
 
   _getBatchParallel () {
     return new Promise((resolve, reject) => {
+      if (this._batchList.length === 0) return resolve(this._finishCycle())
       const config = { advanced: { parallel: 2 } }
       const totalBatchLengths = this._batchList.length
       let completedBatches = 0
@@ -115,11 +113,8 @@ class Schedule extends EventEmitter {
           if (linkCompletion.status === 'article') return this.emit('article', new Article(linkCompletion.article), linkCompletion.link)
           if (linkCompletion.status === 'batch_connected') return callback() // Spawn processor for next batch
           if (linkCompletion.status === 'failed') {
-            // console.log('ho1')
             this.emit('err', new Error(linkCompletion.errMessage))
-            // console.log('ho2')
           } else if (linkCompletion.status === 'success') {
-            // console.log('success' + linkCompletion.link)
             this.feeds[linkCompletion.feedJSONId]._ovewriteOldArticles(linkCompletion.seenArticleList) // Only if config.database.uri is a databaseless folder path
           }
           // console.log('done 1')
@@ -130,9 +125,8 @@ class Schedule extends EventEmitter {
             if (completedBatches === totalBatchLengths) {
               // console.log('done')
               this._processorList.length = 0
-              resolve()
-              this._finishCycle()
               this._processorList = []
+              resolve(this._finishCycle)
             }
           }
         })
@@ -158,7 +152,7 @@ class Schedule extends EventEmitter {
     })
   }
 
-  _finishCycle () {
+  async _finishCycle () {
     // console.log('finished cycle')
     this._batchList.length = 0
   }

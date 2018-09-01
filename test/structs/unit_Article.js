@@ -156,9 +156,6 @@ describe('Unit::Article', function () {
         expect(returnVal).to.equal(' and hopped ')
       })
     })
-
-
-
   })
 
   describe('static ._cleanup', function () {

@@ -2,10 +2,22 @@
 
 const expect = require('chai').expect
 const sinon = require('sinon')
-const Schedule = require('../../structs/Schedule.js')
+const fs = require('fs')
+const EventEmitter = require('events')
+const proxyquire = require('proxyquire')
+let Schedule = require('../../structs/Schedule.js')
 const Feed = require('../../structs/Feed.js')
+const Article = require('../../structs/Article.js')
 
 describe('Unit::Schedule', function () {
+  let FeedMock
+  before(function () {
+    FeedMock = class {
+      constructor () { this.id = Math.random(1000) }
+      toJSON () { }
+      _overwriteOldArticles () { }
+    }
+  })
   describe('.addFeeds()', function () {
     let schedule
     before(function () {
@@ -113,14 +125,10 @@ describe('Unit::Schedule', function () {
     let schedule
     let getBatchStub
     let getBatchParallelStub
-    let FeedMock
     before(function () {
       schedule = new Schedule()
       getBatchStub = sinon.stub(schedule, '_getBatch').resolves()
       getBatchParallelStub = sinon.stub(schedule, '_getBatchParallel').resolves()
-      FeedMock = class {
-        toJSON () { return 1 }
-      }
     })
     after(function () {
       getBatchStub.restore()
@@ -157,7 +165,169 @@ describe('Unit::Schedule', function () {
   })
 
   describe('._getBatch()', function () {
+    const callbackFeedJSONId = 123
+    const callbackSeenArticleList = []
+    it('returns a promise', function () {
+      const schedule = new Schedule()
+      schedule.feeds[callbackFeedJSONId] = new FeedMock()
+      const prom = schedule._getBatch(0, [[new FeedMock()]])
+      expect(prom.then).to.be.a('function')
+      expect(prom.catch).to.be.a('function')
+    })
+    it('should resolve with no batches in the batchList', function () {
+      const schedule = new Schedule()
+      return schedule._getBatch(0, [])
+    })
+    describe('err callback', function () {
+      let schedule
+      before(function () {
+        Schedule = proxyquire('../../structs/Schedule.js', {
+          '../methods/concurrent.js': (data, callback) => {
+            const { currentBatch } = data
+            currentBatch.forEach(item => callback(new Error()))
+          }})
+        schedule = new Schedule()
+      })
+      it('should emit err', async function () {
+        const emitStub = sinon.stub(schedule, 'emit')
+        await schedule._getBatch(0, [[new FeedMock()]])
+        expect(emitStub.calledOnce).to.equal(true)
+        const call0 = emitStub.getCall(0)
+        expect(call0.args[0]).to.equal('err')
+        expect(call0.args[1]).to.be.a('error')
+        emitStub.restore()
+      })
+    })
+    describe('status:success callback', function () {
+      let schedule
+      before(function () {
+        Schedule = proxyquire('../../structs/Schedule.js', {
+          '../methods/concurrent.js': (data, callback) => {
+            const { currentBatch } = data
+            currentBatch.forEach(item => callback(null, { status: 'success', feedJSONId: callbackFeedJSONId, seenArticleList: callbackSeenArticleList }))
+          }
+        })
+        schedule = new Schedule()
+        schedule.feeds[callbackFeedJSONId] = new FeedMock()
+      })
+      it('should recursively call itself the correct number of times based on the number of batchLists', async function () {
+        const batchListOne = [[new FeedMock()]]
+        const batchListTwo = [[new FeedMock()], [new FeedMock(), new FeedMock()]]
+        const batchListThree = [[new FeedMock(), new FeedMock()], [new FeedMock()], [new FeedMock()]]
+        const spy = sinon.spy(schedule, '_getBatch')
+        await schedule._getBatch(0, batchListOne)
+        expect(spy.callCount === 1).to.equal(true)
+        await schedule._getBatch(0, batchListTwo)
+        expect(spy.callCount === 3).to.equal(true)
+        await schedule._getBatch(0, batchListThree)
+        expect(spy.callCount === 6).to.equal(true)
+        spy.restore()
+      })
+      it('should call the _finishCycle after all batches are processed', async function () {
+        const scheduleFinishCycle = sinon.stub(schedule, '_finishCycle')
+        await schedule._getBatch(0, [[new FeedMock(), new FeedMock()], [new FeedMock()], [new FeedMock()]])
+        expect(scheduleFinishCycle.calledOnce).to.equal(true)
+      })
+    })
+    describe('status:failed callback', function () {
+      let schedule
+      before(function () {
+        Schedule = proxyquire('../../structs/Schedule.js', {
+          '../methods/concurrent.js': (data, callback) => {
+            const { currentBatch } = data
+            currentBatch.forEach(item => callback(null, { status: 'failed', err: new Error(), link: 'foobar' }))
+          }
+        })
+        schedule = new Schedule()
+      })
+      it('should emit err', async function () {
+        const emitStub = sinon.stub(schedule, 'emit')
+        await schedule._getBatch(0, [[new FeedMock(), new FeedMock()]])
+        expect(emitStub.calledTwice).to.equal(true)
+        const call0 = emitStub.getCall(0)
+        const call1 = emitStub.getCall(1)
+        expect(call0.args[0]).to.equal('err') // the event name
+        expect(call0.args[1]).to.be.a('error')
+        expect(call0.args[2]).to.be.a('string')
+        expect(call1.args[0]).to.equal('err')
+        emitStub.restore()
+      })
+      it('should recursively call itself the correct number of times based on the number of batchLists', async function () {
+        const batchListOne = [[new FeedMock()]]
+        const batchListTwo = [[new FeedMock()], [new FeedMock(), new FeedMock()]]
+        const batchListThree = [[new FeedMock(), new FeedMock()], [new FeedMock()], [new FeedMock()]]
+        const spy = sinon.spy(schedule, '_getBatch')
+        await schedule._getBatch(0, batchListOne)
+        expect(spy.callCount === 1).to.equal(true)
+        await schedule._getBatch(0, batchListTwo)
+        expect(spy.callCount === 3).to.equal(true)
+        await schedule._getBatch(0, batchListThree)
+        expect(spy.callCount === 6).to.equal(true)
+        spy.restore()
+      })
+      it('should call the _finishCycle after all batches are processed', async function () {
+        const scheduleFinishCycle = sinon.stub(schedule, '_finishCycle')
+        await schedule._getBatch(0, [[new FeedMock(), new FeedMock()], [new FeedMock()], [new FeedMock()]])
+        expect(scheduleFinishCycle.calledOnce).to.equal(true)
+      })
+    })
+    describe('status:article callback', function () {
+      const emitCount = 2
+      let article
+      let schedule
+      before(function () {
+        Schedule = proxyquire('../../structs/Schedule.js', {
+          '../methods/concurrent.js': (data, callback) => {
+            const { currentBatch } = data
+            for (let i = 0; i < emitCount; ++i) callback(null, { status: 'article', article: article, link: 'foobar' })
+            currentBatch.forEach(item => callback(null, { status: 'success', feedJSONId: callbackFeedJSONId, seenArticleList: callbackSeenArticleList }))
+          }
+        })
+        article = JSON.parse(fs.readFileSync('./test/files/article.json'))
+        article.pubdate = new Date(article.pubdate)
+        schedule = new Schedule()
+      })
+      it('should emit articles', async function () {
+        const emitStub = sinon.stub(schedule, 'emit')
+        schedule.feeds[123] = new FeedMock()
+        await schedule._getBatch(0, [[new FeedMock()]])
+        expect(emitStub.calledTwice).to.equal(true)
+        const call0 = emitStub.getCall(0)
+        const call1 = emitStub.getCall(1)
+        expect(call0.args[0]).to.equal('article') // the event name
+        expect(call0.args[1]).to.be.instanceof(Article)
+        expect(call1.args[0]).to.equal('article')
+        emitStub.restore()
+      })
+    })
+  })
 
+  describe('._getBatchParallel', function () {
+    const callbackFeedJSONId = 123
+    const callbackSeenArticleList = []
+    it('returns a promise', function () {
+      const schedule = new Schedule()
+      schedule.feeds[callbackFeedJSONId] = new FeedMock()
+      const prom = schedule._getBatchParallel(0, [[new FeedMock()]])
+      expect(prom.then).to.be.a('function')
+      expect(prom.catch).to.be.a('function')
+    })
+    it('should resolve with no batches in the batchList', function () {
+      const schedule = new Schedule()
+      return schedule._getBatch(0, [])
+    })
+    describe.skip('status:success message', function () {
+      let schedule
+      before(function () {
+        Schedule = proxyquire('../../structs/Schedule.js', {
+          'child_process': {
+            fork: () => new EventEmitter()
+          }
+        })
+        schedule = new Schedule()
+        schedule.feeds[callbackFeedJSONId] = new FeedMock()
+      })
+    })
   })
 
   describe('._finishCycle()', function () {
@@ -167,8 +337,8 @@ describe('Unit::Schedule', function () {
       schedule._batchList.push(1)
       expect(schedule._batchList.length).to.equal(1)
     })
-    it('should clear the batchList', function () {
-      schedule._finishCycle()
+    it('should clear the batchList', async function () {
+      await schedule._finishCycle()
       expect(schedule._batchList.length).to.equal(0)
     })
   })

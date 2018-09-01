@@ -31,7 +31,7 @@ class Feed {
     this._articleList = this._articleList.concat(articleList)
   }
 
-  _ovewriteOldArticles (arr) {
+  _overwriteOldArticles (arr) {
     this._articleList = arr
   }
 }
