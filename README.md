@@ -1,4 +1,4 @@
-# FeedWatch
+# FeedTracker
 
 [![Coverage Status](https://coveralls.io/repos/github/synzen/FeedWatch/badge.svg?branch=master)](https://coveralls.io/github/synzen/FeedWatch?branch=master) [![Build Status](https://travis-ci.org/synzen/FeedWatch.svg?branch=master)](https://travis-ci.org/synzen/FeedWatch) [![Dependency Status](https://david-dm.org/synzen/FeedWatch.svg)](https://david-dm.org/synzen/FeedWatch.svg)
 
