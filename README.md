@@ -1,10 +1,10 @@
 # FeedTracker
 
-[![Coverage Status](https://coveralls.io/repos/github/synzen/FeedWatch/badge.svg?branch=master)](https://coveralls.io/github/synzen/FeedWatch?branch=master) [![Build Status](https://travis-ci.org/synzen/FeedWatch.svg?branch=master)](https://travis-ci.org/synzen/FeedWatch) [![Dependency Status](https://david-dm.org/synzen/FeedWatch.svg)](https://david-dm.org/synzen/FeedWatch.svg)
+[![Coverage Status](https://coveralls.io/repos/github/synzen/FeedWatch/badge.svg?branch=master)](https://coveralls.io/github/synzen/FeedWatch?branch=master) [![Build Status](https://travis-ci.org/synzen/FeedTracker.svg?branch=master)](https://travis-ci.org/synzen/FeedTracker) [![dependencies Status](https://david-dm.org/synzen/FeedWatch/status.svg)](https://david-dm.org/synzen/FeedWatch)
 
 A non-Discord bot version of [Discord.RSS](https://github.com/synzen/Discord.RSS), built upon the same reliable, time-tested logic to track RSS feeds and receive new articles.
 
-This repo is a work in progress - more documentation to follow, as well as tests.
+This repo is a work in progress.
 
 ## Quick Start
 ```js
