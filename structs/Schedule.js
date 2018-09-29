@@ -7,6 +7,9 @@ const batchLogic = require('../methods/concurrent.js')
 class Schedule extends EventEmitter {
   constructor (interval, name, options = {}) {
     super()
+    if (isNaN(parseInt(interval, 10)) || interval < 1) throw new TypeError('Interval must be a positive non-zero number')
+    if (typeof name !== 'string') throw new TypeError('Schedule name must be a string')
+    else if (name === 'default') throw new Error('Schedule name cannot be "default"')
     this.name = name
     this.keywords = options.keywords
     this.interval = interval

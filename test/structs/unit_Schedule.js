@@ -18,10 +18,22 @@ describe('Unit::Schedule', function () {
       _overwriteOldArticles () { }
     }
   })
+  it('should throw a TypeError if there is not a valid interval', function () {
+    expect(() => new Schedule(undefined, '1')).to.throw(TypeError)
+    expect(() => new Schedule(-100, '1')).to.throw(TypeError)
+    expect(() => new Schedule(0, '1')).to.throw(TypeError)
+    expect(() => new Schedule('0', '1')).to.throw(TypeError)
+  })
+  it('should throw a TypeError if there is no name in constructor args', function () {
+    expect(() => new Schedule(100)).to.throw(TypeError)
+  })
+  it('should throw an Error if there is the schedule name is "default"', function () {
+    expect(() => new Schedule(100, 'default')).to.throw(Error)
+  })
   describe('.addFeeds()', function () {
     let schedule
     before(function () {
-      schedule = new Schedule()
+      schedule = new Schedule(1, 'name')
     })
     it('should return a Promise', function () {
       const prom = schedule.addFeeds([])
@@ -83,7 +95,7 @@ describe('Unit::Schedule', function () {
   describe('.addFeed()', function () {
     let schedule
     before(function () {
-      schedule = new Schedule()
+      schedule = new Schedule(1, 'name')
     })
     describe('with non-Feed input', function () {
       it('should reject with TypError on non-Feed input', function (done) {
@@ -126,7 +138,7 @@ describe('Unit::Schedule', function () {
     let getBatchStub
     let getBatchParallelStub
     before(function () {
-      schedule = new Schedule()
+      schedule = new Schedule(1, 'name')
       getBatchStub = sinon.stub(schedule, '_getBatch').resolves()
       getBatchParallelStub = sinon.stub(schedule, '_getBatchParallel').resolves()
     })
@@ -168,14 +180,14 @@ describe('Unit::Schedule', function () {
     const callbackFeedJSONId = 123
     const callbackSeenArticleList = []
     it('returns a promise', function () {
-      const schedule = new Schedule()
+      const schedule = new Schedule(1, 'name')
       schedule.feeds[callbackFeedJSONId] = new FeedMock()
       const prom = schedule._getBatch(0, [[new FeedMock()]])
       expect(prom.then).to.be.a('function')
       expect(prom.catch).to.be.a('function')
     })
     it('should resolve with no batches in the batchList', function () {
-      const schedule = new Schedule()
+      const schedule = new Schedule(1, 'name')
       return schedule._getBatch(0, [])
     })
     describe('err callback', function () {
@@ -186,7 +198,7 @@ describe('Unit::Schedule', function () {
             const { currentBatch } = data
             currentBatch.forEach(item => callback(new Error()))
           }})
-        schedule = new Schedule()
+        schedule = new Schedule(1, 'name')
       })
       it('should emit err', async function () {
         const emitStub = sinon.stub(schedule, 'emit')
@@ -207,7 +219,7 @@ describe('Unit::Schedule', function () {
             currentBatch.forEach(item => callback(null, { status: 'success', feedJSONId: callbackFeedJSONId, seenArticleList: callbackSeenArticleList }))
           }
         })
-        schedule = new Schedule()
+        schedule = new Schedule(1, 'name')
         schedule.feeds[callbackFeedJSONId] = new FeedMock()
       })
       it('should recursively call itself the correct number of times based on the number of batchLists', async function () {
@@ -238,7 +250,7 @@ describe('Unit::Schedule', function () {
             currentBatch.forEach(item => callback(null, { status: 'failed', err: new Error(), link: 'foobar' }))
           }
         })
-        schedule = new Schedule()
+        schedule = new Schedule(1, 'name')
       })
       it('should emit err', async function () {
         const emitStub = sinon.stub(schedule, 'emit')
@@ -285,7 +297,7 @@ describe('Unit::Schedule', function () {
         })
         article = JSON.parse(fs.readFileSync('./test/files/article.json'))
         // article.pubdate = new Date(article.pubdate)
-        schedule = new Schedule()
+        schedule = new Schedule(1, 'name')
       })
       it('should emit articles', async function () {
         const emitStub = sinon.stub(schedule, 'emit')
@@ -305,14 +317,14 @@ describe('Unit::Schedule', function () {
   describe('._getBatchParallel', function () {
     const callbackFeedJSONId = 123
     it('returns a promise', function () {
-      const schedule = new Schedule()
+      const schedule = new Schedule(1, 'name')
       schedule.feeds[callbackFeedJSONId] = new FeedMock()
       const prom = schedule._getBatchParallel(0, [[new FeedMock()]])
       expect(prom.then).to.be.a('function')
       expect(prom.catch).to.be.a('function')
     })
     it('should resolve with no batches in the batchList', function () {
-      const schedule = new Schedule()
+      const schedule = new Schedule(1, 'name')
       return schedule._getBatch(0, [])
     })
     describe.skip('status:success message', function () {
@@ -323,7 +335,7 @@ describe('Unit::Schedule', function () {
             fork: () => new EventEmitter()
           }
         })
-        schedule = new Schedule()
+        schedule = new Schedule(1, 'name')
         schedule.feeds[callbackFeedJSONId] = new FeedMock()
       })
     })
@@ -332,7 +344,7 @@ describe('Unit::Schedule', function () {
   describe('._finishCycle()', function () {
     let schedule
     before(function () {
-      schedule = new Schedule()
+      schedule = new Schedule(1, 'name')
       schedule._batchList.push(1)
       expect(schedule._batchList.length).to.equal(1)
     })

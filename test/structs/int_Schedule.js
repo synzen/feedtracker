@@ -23,7 +23,7 @@ describe('Int::Schedule', function () {
     let toAddIds = []
     let schedule
     before(function () {
-      schedule = new Schedule()
+      schedule = new Schedule(1, 'name')
       for (let i = 0; i < 2; ++i) toAdd.push(new Feed(url))
       toAddIds = toAdd.map(v => v.id)
       scope = nock('http://localhost').persist().get('/feed.xml').reply(200, feed2Articles)
@@ -67,10 +67,8 @@ describe('Int::Schedule', function () {
     let schedule
     before(function () {
       nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
-      schedule = new Schedule()
       feed = new Feed(url)
-      for (let id in schedule.feeds) previousFeedIds.push(id)
-      schedule = new Schedule()
+      schedule = new Schedule(1, 'name')
       addFeedPromise = schedule.addFeed(feed)
     })
     it('should reject on non-Feed input', function (done) {
@@ -92,7 +90,7 @@ describe('Int::Schedule', function () {
     let feed
     before(async function () {
       nock.cleanAll()
-      schedule = new Schedule()
+      schedule = new Schedule(1, 'name')
       nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
       feed = new Feed(url)
       await schedule.addFeed(feed)
@@ -136,7 +134,7 @@ describe('Int::Schedule', function () {
     let feed
     before(async function () {
       nock.cleanAll()
-      schedule = new Schedule(0, '', { processingMethod: 'parallel-isolated' })
+      schedule = new Schedule(100, '', { processingMethod: 'parallel-isolated' })
       nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
       feed = new Feed(url)
       await schedule.addFeed(feed)
