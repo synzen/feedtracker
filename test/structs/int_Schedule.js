@@ -16,69 +16,70 @@ describe('Int::Schedule', function () {
     url = 'http://localhost/feed.xml'
   })
   describe('.addFeed()', function () {
-    let addFeedPromise
-    let previousFeedIds = []
-    let schedule
-    before(function () {
+    it('should return a promise', async function () {
       nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
-      schedule = new Schedule(1, 'name')
-      addFeedPromise = schedule.addFeed(url)
-    })
-    it('should return a promise', function (done) {
-      expect(addFeedPromise.then).to.be.a('function')
-      expect(addFeedPromise.catch).to.be.a('function')
+      const schedule = new Schedule(1, 'name')
+      const prom = schedule.addFeed(url)
+      expect(prom.then).to.be.a('function')
+      expect(prom.catch).to.be.a('function')
     })
     it('should add to this.feeds by 1', async function () {
-      await addFeedPromise
+      nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
+      const schedule = new Schedule(1, 'name')
+      await schedule.addFeed(url)
       expect(Object.keys(schedule.feeds).length).to.equal(1)
     })
     it('should have the added feed in this.feeds for this schedule', async function () {
-      const feed = await addFeedPromise
-      expect(schedule.feeds).to.have.all.keys(previousFeedIds.concat([feed.id]))
+      nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
+      const schedule = new Schedule(1, 'name')
+      const feed = await schedule.addFeed(url)
+      expect(schedule.feeds).to.have.all.keys([feed.id])
     })
   })
 
   describe('.addFeeds()', function () {
     const toAdd = []
-    let addFeedsPromise
     let scope
-    let toAddIds = []
-    let schedule
     before(function () {
-      schedule = new Schedule(1, 'name')
       for (let i = 0; i < 2; ++i) toAdd.push(url)
-      toAddIds = toAdd.map(v => v.id)
       scope = nock('http://localhost').persist().get('/feed.xml').reply(200, feed2Articles)
-      addFeedsPromise = schedule.addFeeds(toAdd)
     })
     after(function () {
       scope.persist(false)
       nock.cleanAll()
     })
+    it('should return a promise', function () {
+      const schedule = new Schedule(1, 'name')
+      const prom = schedule.addFeeds(toAdd)
+      expect(prom.then).to.be.a('function')
+      expect(prom.catch).to.be.a('function')
+    })
     it(`should add to this.feeds the right amount`, async function () {
-      await addFeedsPromise
+      const schedule = new Schedule(1, 'name')
+      await schedule.addFeeds(toAdd)
       expect(Object.keys(schedule.feeds).length).to.equal(toAdd.length)
     })
-    it(`should have the added feeds in this.feeds for this schedule`, function () {
+    it(`should have the added feeds in this.feeds for this schedule`, async function () {
+      const schedule = new Schedule(1, 'name')
+      const feeds = await schedule.addFeeds(toAdd)
+      const addedIds = feeds.map(f => f.id)
       const ids = []
       for (let id in schedule.feeds) ids.push(id)
-      expect(ids).to.have.members(toAddIds)
+      expect(ids).to.have.members(addedIds)
     })
-    it('should popuate _articleList of objectsfor every feed', function () {
+    it('should popuate _articleList of objects for every feed', async function () {
+      const schedule = new Schedule(1, 'name')
+      await schedule.addFeeds(toAdd)
       for (let id in schedule.feeds) {
         const feed = schedule.feeds[id]
         expect(feed._articleList.length).to.be.greaterThan(0)
       }
     })
-    describe('with Array input', function () {
-      it('with Feed array contents should resolve the promise', async function () {
-        await schedule.addFeeds([url, url])
-      })
-      it('with a single invalid feed should reject the promise', function (done) {
-        schedule.addFeeds([url, 1, 2])
-          .then(() => done(new Error('Promise resolved with invalid feed array contents')))
-          .catch(() => done())
-      })
+    it('should reject with a single invalid feed', function (done) {
+      const schedule = new Schedule(1, 'name')
+      schedule.addFeeds([url, 1, 2])
+        .then(() => done(new Error('Promise resolved with invalid feed array contents')))
+        .catch(() => done())
     })
   })
 
