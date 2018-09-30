@@ -3,8 +3,18 @@
   "version": "0.0.1",
   "description": "Track RSS feeds and get pre-beautified articles",
   "main": "index.js",
+  "keywords": [
+    "rss",
+    "feeds",
+    "tracking",
+    "beautify"
+  ],
   "bugs": {
     "url": "https://github.com/synzen/feedtracker/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/synzen/feedtracker.git"
   },
   "scripts": {
     "mocha-test": "mocha --recursive",
