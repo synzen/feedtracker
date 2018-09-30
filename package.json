@@ -1,6 +1,6 @@
 {
   "name": "feedtracker",
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Track RSS feeds and get pre-beautified articles",
   "author": "synzen",
   "main": "index.js",
