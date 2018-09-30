@@ -11,8 +11,7 @@ Track RSS feeds and receive new articles.
 const Tracker = require('feedtracker')
 
 const fetcher = new Tracker.Fetcher(10000) // Time in ms to check for new articles
-const feed = new Tracker.Feed(url)
-fetcher.addFeed(feed)
+fetcher.addFeed(url)
 .then(() => /* success */)
 .catch(err => /* handle error */)
 
@@ -45,9 +44,9 @@ fetcher.addFeeds(links)
 const Tracker = require('feedtracker')
 
 const fetcher = new Tracker.Fetcher(10000) // Time in ms
-fetcher.addSchedule(new Tracker.Schedule(20000, 'my name'))
-fetcher.addFeed(new Tracker.Feed(url))
-.then(() => fetcher.addFeed(new Tracker.Feed(url2), 'my name') // Add this feed to the new schedule. Omit the name for the default one)
+fetcher.addSchedule(new Tracker.Schedule(20000, 'schedule name'))
+fetcher.addFeed(url)
+.then(() => fetcher.addFeed(url2, 'schedule name') // Add this feed to the new schedule. Omit the name for the default one)
 .then(() => /* success */)
 
 fetcher.on('article', handler)
