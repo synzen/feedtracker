@@ -2,9 +2,9 @@
 
 [![Coverage Status](https://coveralls.io/repos/github/synzen/FeedWatch/badge.svg?branch=master)](https://coveralls.io/github/synzen/FeedWatch?branch=master) [![Build Status](https://travis-ci.org/synzen/FeedTracker.svg?branch=master)](https://travis-ci.org/synzen/FeedTracker) [![dependencies Status](https://david-dm.org/synzen/FeedWatch/status.svg)](https://david-dm.org/synzen/FeedWatch)
 
-A non-Discord bot version of [Discord.RSS](https://github.com/synzen/Discord.RSS), built upon the same reliable, time-tested logic to track RSS feeds and receive new articles.
+![npm install feedtracker](https://nodei.co/npm/feedtracker.png)
 
-This repo is a work in progress.
+Track RSS feeds and receive new articles.
 
 ## Quick Start
 ```js
@@ -171,3 +171,11 @@ Returns a promise, and resolves with an array of the current articles by feedpar
 #### Feed#toJSON()
 
 Returns a JSON representation of the the Feed instance.
+
+***
+
+## Testing
+
+```
+npm run mocha-test
+```

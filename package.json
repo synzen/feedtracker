@@ -1,7 +1,7 @@
 {
   "name": "FeedTracker",
   "version": "0.0.1",
-  "description": "",
+  "description": "Track RSS feeds and get pre-beautified articles",
   "main": "index.js",
   "scripts": {
     "mocha-test": "mocha --recursive",
