@@ -1,8 +1,11 @@
 {
-  "name": "FeedTracker",
+  "name": "feedtracker",
   "version": "0.0.1",
   "description": "Track RSS feeds and get pre-beautified articles",
   "main": "index.js",
+  "bugs": {
+    "url": "https://github.com/synzen/feedtracker/issues"
+  },
   "scripts": {
     "mocha-test": "mocha --recursive",
     "mocha-test:unit": "mocha --recursive --grep ^Unit:: ",
