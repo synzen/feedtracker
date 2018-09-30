@@ -71,6 +71,7 @@ fetcher.on('err', errHandler)
    * [Feed#getArticles](#feedgetarticles)
    * [Feed#toJSON](#feedtojson)
 
+***
 
 ### Main Classes
 
@@ -87,6 +88,8 @@ Creates a fetcher. If no interval is specified, a default schedule is automatica
       * *Number* `batchSize` - Number of feeds to request in one batch of concurrent requests. Applies to both `processingMethods` above. Defaults to `300`
 
 Concurrent processing method is when feeds are fetched in the same process of fetcher (that the schedule belongs to). Parallel-isolated is when feeds are fetched in a forked child process. The latter method is much faster and more efficient for heavy use (several thousand feeds).
+
+***
 
 ### Utility Classes
 
@@ -110,19 +113,21 @@ Properties:
    * *Array\<String\>* `descriptionAnchors` - Anchor links found in the description
    * *Array\<String\>* `summaryAnchors` - Anchor links found in the summary
 
+***
+
 ### Fetcher
 
 #### Fetcher#addFeed(url[, scheduleName])
    * *String* `url` - URL of the feed
    * *String* `scheduleName` - Name of the schedule to add the feed to. Defaults to the default schedule if it exists
 
-Returns a promise since it requests the feed to check if it is a valid (returns a valid parsable 200-code response). Do not use this to add multiple links - use the pluralized method (addFeeds) instead for faster concurrent requests.
+Returns a promise since it requests the feed to check if it is a valid (returns a valid parsable 200-code response). Do not use this to add multiple links - use the pluralized method (addFeeds) instead for faster concurrent requests. Resolves with a Tracker.Feed object.
 
 #### Fetcher#addFeeds(urls[, scheduleName])
    * *Array\<String\>* `urls` - URLs of feeds
    * *String* `scheduleName` - Name of the schedule to add the feed to. Defaults to the default schedule if it exists
 
-Returns a promise. Concurrently requests the urls for validation. Rejects all the URLs if a single one fails.
+Returns a promise. Concurrently requests the urls for validation. Resolves with an array of Tracker.Feed objects. Rejects all the URLs if a single one fails.
 
 #### Fetcher#addSchedule(schedule)
    * *Tracker.Schedule* `schedule` - The Schedule to add
@@ -135,23 +140,27 @@ Throws an error if the schedule name already exists.
       * *String* `err` - Emitted whenever a link has an error (a feedparser error or connection error)
    * *String* `args...` - For the article event, there are two args - the article and the feed link. For the err event, there are two args - the error and the feed link, respectively - however the link is not available when the schedule's processingMethod is `parallel-isolated`
 
+***
+
 ### Schedule
 
 #### Schedule#addFeed(feed)
    * *String* `url` - URL of the feed
 
-Returns a promise.
+Returns a promise. Resolves with a Tracker.Feed object.
 
 #### Schedule#addFeeds(feeds)
    * *Array\<String\>* `urls` - URLs of feeds
 
-Returns a promise.
+Returns a promise. Resolves with an array of Tracker.Feed objects. Rejects all the URLs if a single one fails.
 
 #### Schedule#on(event[, args...])
    * *String* `event` - There are two events to listen to
       * *String* `article` - Emitted whenever there is a new article found durng one of the feed check cycles
       * *String* `err` - Emitted whenever a link has an error (a feedparser error or connection error)
    * *String* `args...` - For the article event, there are two args - the article and the feed link. For the err event, there are two args - the error and the feed link, respectively - however the link is not available when the schedule's processingMethod is `parallel-isolated`
+
+***
 
 ### Feed
 
