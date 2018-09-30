@@ -1,7 +1,8 @@
 {
   "name": "feedtracker",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Track RSS feeds and get pre-beautified articles",
+  "author": "synzen",
   "main": "index.js",
   "keywords": [
     "rss",
@@ -25,7 +26,6 @@
     "test:int": "nyc --reporter=html --reporter=text mocha --recursive --grep ^Int:: ",
     "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
-  "author": "synzen",
   "license": "MIT",
   "dependencies": {
     "feedparser": "^2.2.9",
