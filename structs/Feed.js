@@ -21,7 +21,7 @@ class Feed {
       id: this.id,
       link: this.link,
       options: this.options,
-      requestOptions: this.requestOptions,
+      requestOptions: this.options ? this.options.request : undefined,
       seenArticleList: this._articleList
     }
   }
