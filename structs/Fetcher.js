@@ -11,7 +11,7 @@ class Fetcher extends EventEmitter {
     this._intervals = []
     if (!interval) return
     this.defaultSchedule = new Schedule(interval, 'default', { _overrideDefault: true })
-    this.defaultSchedule.on('article', article => this.emit('article', article))
+    this.defaultSchedule.on('article', (article, link) => this.emit('article', article, link))
     this.defaultSchedule.on('err', (err, link) => this.emit('err', err, link))
     this.schedules.push(this.defaultSchedule)
     const defaultInterval = setInterval(() => this.defaultSchedule._run(), this.defaultSchedule.interval)
