@@ -11,34 +11,34 @@ class Schedule extends EventEmitter {
     if (typeof name !== 'string') throw new TypeError('Schedule name must be a string')
     else if (!options._overrideDefault && name === 'default') throw new Error('Schedule name cannot be "default"')
     this.name = name
-    this.keywords = options.keywords
     this.interval = interval
     this.processingMethod = options.processingMethod !== 'concurrent' && options.processingMethod !== 'parallel-isolated' ? 'concurrent' : options.processingMethod
     this.feeds = {}
     this._batchList = []
     this._processorList = []
-    this.batchSize = 300
+    this.batchSize = options.batchSize || 300
   }
 
-  async addFeeds (feeds) {
+  async addFeeds (feedURLs) {
     const toAdd = {}
-    if (!Array.isArray(feeds)) throw new TypeError('Argument is Not an array')
-    else if (feeds.length === 0) return
+    if (!Array.isArray(feedURLs)) throw new TypeError('Argument is Not an array')
+    else if (feedURLs.length === 0) return
+    const feeds = []
+    feedURLs.forEach(url => feeds.push(new Feed(url)))
     for (let feed of feeds) {
-      if (!(feed instanceof Feed)) throw new TypeError('Array contains a non-Feed object')
-      else {
-        await feed._initialize()
-        toAdd[feed.id] = feed
-        // this.feeds[feed.id] = feed
-      }
+      await feed._initialize()
+      toAdd[feed.id] = feed
+      // this.feeds[feed.id] = feed
     }
     for (let id in toAdd) this.feeds[id] = toAdd[id]
+    return feeds
   }
 
-  async addFeed (feed) {
-    if (!(feed instanceof Feed)) throw new TypeError('Argument is a not a Feed object')
+  async addFeed (feedURL) {
+    const feed = new Feed(feedURL)
     await feed._initialize()
     this.feeds[feed.id] = feed
+    return feed
   }
 
   _run (nockFile, statusCode) {

@@ -43,9 +43,9 @@ describe('Unit::Fetcher', function () {
       it('emitting "article" should cause the fetcher to emit the same things', function () {
         const spy = sinon.spy()
         fetcherWithInterval.on('article', spy)
-        fetcherWithInterval.defaultSchedule.emit('article', 'foobar')
+        fetcherWithInterval.defaultSchedule.emit('article', 'foobar', 'link')
         expect(spy.calledOnce).to.equal(true)
-        expect(spy.calledWithExactly('foobar')).to.equal(true)
+        expect(spy.calledWithExactly('foobar', 'link')).to.equal(true)
       })
       it('emitting "err" should cause the fetcher to emit the same things', function () {
         const spy = sinon.spy()

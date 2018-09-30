@@ -4,7 +4,6 @@ const expect = require('chai').expect
 const Article = require('../../structs/Article.js')
 const sinon = require('sinon')
 const Schedule = require('../../structs/Schedule.js')
-const Feed = require('../../structs/Feed.js')
 const nock = require('nock')
 const fs = require('fs')
 const feed2Articles = fs.readFileSync('./test/files/feed2Articles.xml')
@@ -16,6 +15,29 @@ describe('Int::Schedule', function () {
   before(function () {
     url = 'http://localhost/feed.xml'
   })
+  describe('.addFeed()', function () {
+    let addFeedPromise
+    let previousFeedIds = []
+    let schedule
+    before(function () {
+      nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
+      schedule = new Schedule(1, 'name')
+      addFeedPromise = schedule.addFeed(url)
+    })
+    it('should return a promise', function (done) {
+      expect(addFeedPromise.then).to.be.a('function')
+      expect(addFeedPromise.catch).to.be.a('function')
+    })
+    it('should add to this.feeds by 1', async function () {
+      await addFeedPromise
+      expect(Object.keys(schedule.feeds).length).to.equal(1)
+    })
+    it('should have the added feed in this.feeds for this schedule', async function () {
+      const feed = await addFeedPromise
+      expect(schedule.feeds).to.have.all.keys(previousFeedIds.concat([feed.id]))
+    })
+  })
+
   describe('.addFeeds()', function () {
     const toAdd = []
     let addFeedsPromise
@@ -24,7 +46,7 @@ describe('Int::Schedule', function () {
     let schedule
     before(function () {
       schedule = new Schedule(1, 'name')
-      for (let i = 0; i < 2; ++i) toAdd.push(new Feed(url))
+      for (let i = 0; i < 2; ++i) toAdd.push(url)
       toAddIds = toAdd.map(v => v.id)
       scope = nock('http://localhost').persist().get('/feed.xml').reply(200, feed2Articles)
       addFeedsPromise = schedule.addFeeds(toAdd)
@@ -50,50 +72,23 @@ describe('Int::Schedule', function () {
     })
     describe('with Array input', function () {
       it('with Feed array contents should resolve the promise', async function () {
-        await schedule.addFeeds([new Feed(url), new Feed(url)])
+        await schedule.addFeeds([url, url])
       })
-      it('with non-Feed array contents should reject the promise', function (done) {
-        schedule.addFeeds([new Feed(url), 1, 2])
-          .then(() => done(new Error('Promise resolved with non-Feed array contents')))
+      it('with a single invalid feed should reject the promise', function (done) {
+        schedule.addFeeds([url, 1, 2])
+          .then(() => done(new Error('Promise resolved with invalid feed array contents')))
           .catch(() => done())
       })
     })
   })
 
-  describe('.addFeed()', function () {
-    let feed
-    let addFeedPromise
-    let previousFeedIds = []
-    let schedule
-    before(function () {
-      nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
-      feed = new Feed(url)
-      schedule = new Schedule(1, 'name')
-      addFeedPromise = schedule.addFeed(feed)
-    })
-    it('should reject on non-Feed input', function (done) {
-      schedule.addFeed()
-        .then(() => done(new Error('Promise resolved with a non-Feed input')))
-        .catch(() => done())
-    })
-    it('should add to this.feeds by 1', async function () {
-      await addFeedPromise
-      expect(Object.keys(schedule.feeds).length).to.equal(1)
-    })
-    it('should have the added feed in this.feeds for this schedule', function () {
-      expect(schedule.feeds).to.have.all.keys(previousFeedIds.concat([feed.id]))
-    })
-  })
-
   describe('concurrent processing method', function () {
     let schedule
-    let feed
     before(async function () {
       nock.cleanAll()
       schedule = new Schedule(1, 'name')
       nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
-      feed = new Feed(url)
-      await schedule.addFeed(feed)
+      await schedule.addFeed(url)
     })
     after(function () {
       nock.cleanAll()
@@ -131,13 +126,11 @@ describe('Int::Schedule', function () {
   })
   describe('parallel-isolated processing method', function () {
     let schedule
-    let feed
     before(async function () {
       nock.cleanAll()
       schedule = new Schedule(100, '', { processingMethod: 'parallel-isolated' })
       nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
-      feed = new Feed(url)
-      await schedule.addFeed(feed)
+      await schedule.addFeed(url)
     })
     after(function () {
       nock.cleanAll()

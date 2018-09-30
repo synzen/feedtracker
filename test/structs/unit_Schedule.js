@@ -6,12 +6,15 @@ const fs = require('fs')
 const EventEmitter = require('events')
 const proxyquire = require('proxyquire')
 let Schedule = require('../../structs/Schedule.js')
-const Feed = require('../../structs/Feed.js')
 const Article = require('../../structs/Article.js')
+const nock = require('nock')
+const feed2Articles = fs.readFileSync('./test/files/feed2Articles.xml')
 
 describe('Unit::Schedule', function () {
   let FeedMock
+  let url
   before(function () {
+    url = 'http://localhost/feed.xml'
     FeedMock = class {
       constructor () { this.id = Math.random(1000) }
       toJSON () { }
@@ -52,33 +55,29 @@ describe('Unit::Schedule', function () {
         })
       })
       describe('with Feed items', function () {
-        let feeds
-        let stubs
+        let scope
+        let feedURLs
         before(function () {
-          feeds = []
-          stubs = []
-          for (let i = 0; i < 5; ++i) {
-            const feed = new Feed('foobar')
-            const stub = sinon.stub(feed, '_initialize')
-            stub.resolves([])
-            stubs.push(stub)
-            feeds.push(feed)
-          }
+          scope = nock('http://localhost').persist().get('/feed.xml').reply(200, feed2Articles)
+          feedURLs = []
+          for (let i = 0; i < 5; ++i) feedURLs.push(url)
         })
-        it('should resolve with an Array of Feeds as input', function (done) {
-          const prom = schedule.addFeeds(feeds)
-          prom.then(() => {
-            stubs.forEach(stub => stub.restore())
-            done()
-          }).catch(err => {
-            stubs.forEach(stub => stub.restore())
-            done(err)
-          })
+        after(function () {
+          scope.persist(false)
+          nock.cleanAll()
         })
-        it(`should add to this.feeds object keys length by the right amount`, function () {
+        it('should resolve with an Array of Feeds as input', async function () {
+          const schedule = new Schedule(1, 'name')
+          await schedule.addFeeds(feedURLs)
+        })
+        it(`should add to this.feeds object keys length by the right amount`, async function () {
+          const schedule = new Schedule(1, 'name')
+          const feeds = await schedule.addFeeds(feedURLs)
           expect(Object.keys(schedule.feeds).length).to.equal(feeds.length)
         })
-        it('should add the right keys to this.feeds object', function () {
+        it('should add the right keys to this.feeds object', async function () {
+          const schedule = new Schedule(1, 'name')
+          const feeds = await schedule.addFeeds(feedURLs)
           const ids = feeds.map(feed => feed.id)
           expect(schedule.feeds).to.have.all.keys(ids)
         })
@@ -93,41 +92,30 @@ describe('Unit::Schedule', function () {
   })
 
   describe('.addFeed()', function () {
-    let schedule
-    before(function () {
-      schedule = new Schedule(1, 'name')
-    })
     describe('with non-Feed input', function () {
+      const schedule = new Schedule(1, 'name')
       it('should reject with TypError on non-Feed input', function (done) {
         schedule.addFeed()
-          .then(() => {
-            done(new Error('Promise was resolved with non-Feed input'))
-          })
+          .then(() => done(new Error('Promise was resolved with non-Feed input')))
           .catch(() => done())
       })
     })
     describe('with Feed input', function () {
-      let feed
-      let stub
-      before(function () {
-        feed = new Feed('link')
-        stub = sinon.stub(feed, '_initialize').resolves([])
-      })
-      it('should resolve', function (done) {
-        schedule.addFeed(feed)
-          .then(() => {
-            stub.restore()
-            done()
-          })
-          .catch(err => {
-            stub.restore()
-            done(err)
-          })
+      it('should resolve', async function () {
+        const schedule = new Schedule(1, 'name')
+        nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
+        await schedule.addFeed(url)
       })
       it('should add to this.feeds object keys length by 1', async function () {
+        const schedule = new Schedule(1, 'name')
+        nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
+        await schedule.addFeed(url)
         expect(Object.keys(schedule.feeds).length).to.equal(1)
       })
-      it('should have the added the right keys in this.feeds object', function () {
+      it('should have the added the right keys in this.feeds object', async function () {
+        const schedule = new Schedule(1, 'name')
+        nock('http://localhost').get('/feed.xml').reply(200, feed2Articles)
+        const feed = await schedule.addFeed(url)
         expect(schedule.feeds).to.have.all.keys(feed.id)
       })
     })
