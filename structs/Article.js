@@ -132,7 +132,7 @@ class Article {
   static _checkType (item, results) {
     if (Object.prototype.toString.call(item) === '[object Object]') {
       return () => Article._findImages(item, results)
-    } else if (typeof item === 'string' && item.match(/\.(jpg|jpeg|png|gif|bmp|webp)$/i) && !results.includes(item) && results.length < 9) {
+    } else if (typeof item === 'string' && item.match(/\.(jpg|jpeg|png|gif|bmp|webp)$/i) && !results.includes(item) /* && results.length < 9 */) {
       if (item.startsWith('//')) item = 'http:' + item
       results.push(item)
     }
@@ -163,7 +163,7 @@ class Article {
           if (isStr && link.startsWith('//')) link = 'http:' + link
           else if (isStr && !link.startsWith('http://') && !link.startsWith('https://')) link = 'http://' + link
 
-          if (Array.isArray(imgSrcs) && imgSrcs.length < 9 && isStr && link) imgSrcs.push(link)
+          if (Array.isArray(imgSrcs) /* && imgSrcs.length < 9 */ && isStr && link) imgSrcs.push(link)
 
           let exist = true
           const globalExistOption = globalConfig.imageLinksExistence
@@ -178,7 +178,7 @@ class Article {
           const orig = fn(node.children, options)
           if (!Array.isArray(anchorLinks)) return orig
           const href = node.attribs.href ? node.attribs.href.trim() : ''
-          if (anchorLinks.length < 5 && href) anchorLinks.push(href)
+          if (/* anchorLinks.length < 5 && */ href) anchorLinks.push(href)
           return orig
         }
       }
