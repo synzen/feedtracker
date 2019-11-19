@@ -1,6 +1,6 @@
 on: ["push", "pull_request"]
 
-name: Test Coveralls
+name: Test Coverage
 
 jobs:
 
@@ -19,7 +19,7 @@ jobs:
     - name: npm install, make test-coverage
       run: |
         npm install
-        make test-coverage
+        make run coverage
 
     - name: Coveralls
       uses: coverallsapp/github-action@master
