@@ -4,7 +4,7 @@
 
 [![NPM](https://nodei.co/npm/feedtracker.png)](https://nodei.co/npm/feedtracker/)
 
-Track RSS feeds and receive new articles.
+Track RSS feeds and receive new articles automatically.
 
 ## Quick Start
 ```js
