@@ -15,7 +15,8 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: 10.x
-
+    - name: Coveralls GitHub Action
+      uses: coverallsapp/github-action@v1.0.1
     - name: npm install, make test-coverage
       run: |
         npm install
