@@ -1,6 +1,5 @@
 # feedtracker
-
-[![Coverage Status](https://coveralls.io/repos/github/synzen/FeedTracker/badge.svg?branch=master)](https://coveralls.io/github/synzen/FeedTracker?branch=master) [![Build Status](https://travis-ci.org/synzen/feedtracker.svg?branch=master)](https://travis-ci.org/synzen/feedtracker) [![dependencies Status](https://david-dm.org/synzen/feedtracker/status.svg)](https://david-dm.org/synzen/feedtracker)
+[![Build Status](https://travis-ci.org/synzen/feedtracker.svg?branch=master)](https://travis-ci.org/synzen/feedtracker) [![dependencies Status](https://david-dm.org/synzen/feedtracker/status.svg)](https://david-dm.org/synzen/feedtracker)
 
 [![NPM](https://nodei.co/npm/feedtracker.png)](https://nodei.co/npm/feedtracker/)
 

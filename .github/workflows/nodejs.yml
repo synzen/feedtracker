@@ -1,26 +1,21 @@
 on: ["push", "pull_request"]
 
-name: Test Coverage
+name: Node CI
 
 jobs:
-
-  build:
-    name: Build
+  Test:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@master
 
-    - uses: actions/checkout@v1
-
-    - name: Use Node.js 10.x
-      uses: actions/setup-node@v1
-      with:
-        node-version: 10.x
     - name: npm install, make test-coverage
       run: |
         npm install
-        npm run coverage
-
-    - name: Coveralls
-      uses: coverallsapp/github-action@master
+        npm run codecov-coverage
+    - uses: codecov/codecov-action@v1
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
+        token: ${{ secrets.CODECOV_TOKEN }} #required
+        # file: ./coverage.xml #optional
+        # flags: unittests #optional
+        # name: codecov-umbrella #optional
+        # yml: ./codecov.yml #optional
